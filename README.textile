@@ -4,7 +4,9 @@ Mmseg Analysis for ElasticSearch
 Install
 -------------
 
-`bin/plugin -install medcl/elasticsearch-analysis-mmseg/1.0.0`
+<pre>
+bin/plugin -install medcl/elasticsearch-analysis-mmseg/1.0.0`
+</pre>
 
 also download the dict files,unzip these dict file to your elasticsearch's config folder,such as: your-es-root/config/mmseg
 

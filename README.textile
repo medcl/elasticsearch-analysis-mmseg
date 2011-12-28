@@ -1,57 +1,35 @@
-IK Analysis for ElasticSearch
+Mmseg Analysis for ElasticSearch
 ==================================
 
-The IK Analysis plugin integrates Lucene IK analyzer into elasticsearch, support customized dictionary.
+Install
+-------------
 
-In order to install the plugin, simply run: `bin/plugin -install medcl/elasticsearch-analysis-ik/1.0.0`. also download the dict files:
-wget http://github.com/downloads/medcl/elasticsearch-analysis-ik/ik.zip
-unzip these dict file to your elasticsearch's config folder,like: your-es-root/config/ik
+`bin/plugin -install medcl/elasticsearch-analysis-mmseg/1.0.0`
+
+also download the dict files,unzip these dict file to your elasticsearch's config folder,such as: your-es-root/config/mmseg
 
 <pre>
 cd config
-wget http://github.com/downloads/medcl/elasticsearch-analysis-ik/ik.zip --no-check-certificate
-unzip ik.zip
-rm ik.zip
+wget http://github.com/downloads/medcl/elasticsearch-analysis-mmseg/mmseg.zip --no-check-certificate
+unzip mmseg.zip
+rm mmseg.zip
 </pre>
 
 you need a service restart after that!
 
-Dict Configuration (es-root/config/ik/IKAnalyzer.cfg.xml)
--------------
-
-https://github.com/medcl/elasticsearch-analysis-ik/blob/master/config/ik/IKAnalyzer.cfg.xml
-
-<pre>
-
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">  
-<properties>  
-	<comment>IK Analyzer 扩展配置</comment>
-	<!--用户可以在这里配置自己的扩展字典 -->	
-	<entry key="ext_dict">custom/mydict.dic;custom/sougou.dict</entry> 	
-	 <!--用户可以在这里配置自己的扩展停止词字典-->
-	<entry key="ext_stopwords">custom/ext_stopword.dic</entry> 	
-</properties>
-
-</pre>
 
 Analysis Configuration (elasticsearch.yml)
 -------------
 
 <pre>
 
-    {
-        "index" : {
-            "analysis" : {
-                "analyzer" : {
-                    "ik" : {
-                        type: org.elasticsearch.index.analysis.IkAnalyzerProvider
-                    }
-                }
-            }
-        }
-    }
-    
+index:
+  analysis:
+    analyzer:
+      mmseg:
+          alias: [news_analyzer, mmseg_analyzer]
+          type: org.elasticsearch.index.analysis.MMsegAnalyzerProvider
+index.analysis.analyzer.default.type : "mmseg"
 </pre>
 
 Mapping Configuration
@@ -74,8 +52,8 @@ curl -XPOST http://localhost:9200/index/fulltext/_mapping -d'
 {
     "fulltext": {
              "_all": {
-            "indexAnalyzer": "ik",
-            "searchAnalyzer": "ik",
+            "indexAnalyzer": "mmseg",
+            "searchAnalyzer": "mmseg",
             "term_vector": "no",
             "store": "false"
         },
@@ -84,8 +62,8 @@ curl -XPOST http://localhost:9200/index/fulltext/_mapping -d'
                 "type": "string",
                 "store": "no",
                 "term_vector": "with_positions_offsets",
-                "indexAnalyzer": "ik",
-                "searchAnalyzer": "ik",
+                "indexAnalyzer": "mmseg",
+                "searchAnalyzer": "mmseg",
                 "include_in_all": "true",
                 "boost": 8
             }

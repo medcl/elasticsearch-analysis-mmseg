@@ -6,3 +6,5 @@
 /out
 .DS_Store
 *.iml
+*.ipr
+*.iws

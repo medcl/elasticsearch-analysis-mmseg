@@ -1,11 +1,19 @@
 Mmseg Analysis for ElasticSearch
 ==================================
 
+The Mmseg Analysis plugin integrates Lucene mmseg4j-analyzer:http://code.google.com/p/mmseg4j/ into elasticsearch, support customized dictionary.
+
+Version
+-—————
+master | 0.19.4 → master
+1.1.0 | 0.19.4 → master
+1.0.0 | 0.16.2 → 0.19.3
+
 Install
 -------------
 
 <pre>
-bin/plugin -install medcl/elasticsearch-analysis-mmseg/1.0.0
+bin/plugin -install medcl/elasticsearch-analysis-mmseg/1.1.0
 </pre>
 
 also download the dict files,unzip these dict file to your elasticsearch's config folder,such as: your-es-root/config/mmseg

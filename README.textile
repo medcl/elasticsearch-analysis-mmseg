@@ -3,6 +3,8 @@ Mmseg Analysis for ElasticSearch
 
 The Mmseg Analysis plugin integrates Lucene mmseg4j-analyzer:http://code.google.com/p/mmseg4j/ into elasticsearch, support customized dictionary.
 
+The plugin includes a `mmseg` analyzer and a `mmseg` tokenizer.
+
 Version
 -—————
 master | 0.19.4 → master
@@ -40,6 +42,24 @@ index:
           alias: [news_analyzer, mmseg_analyzer]
           type: org.elasticsearch.index.analysis.MMsegAnalyzerProvider
 index.analysis.analyzer.default.type : "mmseg"
+</pre>
+
+
+additional parameters that can be used to customize the mmseg tokenizer
+
+<pre>
+index:
+  analysis:
+    tokenizer:
+      mmseg_maxword:
+          type: mmseg
+          seg_type: "max_word"
+      mmseg_complex:
+          type: mmseg
+          seg_type: "complex"
+      mmseg_simple:
+          type: mmseg
+          seg_type: "simple"
 </pre>
 
 Mapping Configuration

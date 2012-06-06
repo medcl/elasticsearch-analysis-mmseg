@@ -31,6 +31,11 @@ public class MMsegAnalysisBinderProcessor extends AnalysisModule.AnalysisBinderP
 
     }
 
+    @Override
+    public void processTokenizers(TokenizersBindings tokenizersBindings) {
+        tokenizersBindings.processTokenizer("mmseg", MMsegTokenizerFactory.class);
+        super.processTokenizers(tokenizersBindings);
+    }
 
     @Override public void processAnalyzers(AnalyzersBindings analyzersBindings) {
         analyzersBindings.processAnalyzer("mmseg", MMsegAnalyzerProvider.class);

@@ -20,12 +20,11 @@
 package org.elasticsearch.index.analysis;
 
 import com.chenlb.mmseg4j.analysis.MMSegAnalyzer;
-import org.apache.lucene.analysis.path.PathHierarchyTokenizer;
 import org.elasticsearch.common.inject.Inject;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.env.Environment;
-import org.elasticsearch.index.settings.IndexSettings;
 import org.elasticsearch.index.Index;
+import org.elasticsearch.index.settings.IndexSettings;
 
 import java.io.File;
 
@@ -46,18 +45,6 @@ public class MMsegAnalyzerProvider extends AbstractIndexAnalyzerProvider<MMSegAn
         String path=new File(environment.configFile(),"mmseg").getPath();
         analyzer=new MMSegAnalyzer(path);
     }
-
-    @Override
-    public String name() {
-        return "mmseg";
-    }
-
-    @Override
-    public AnalyzerScope scope() {
-        return AnalyzerScope.INDEX;
-    }
-
-
     @Override public MMSegAnalyzer get() {
         return this.analyzer;
     }

@@ -27,8 +27,9 @@ package org.elasticsearch.index.analysis;
  */
 public class MMsegAnalysisBinderProcessor extends AnalysisModule.AnalysisBinderProcessor  {
 
-    @Override public void processTokenFilters(TokenFiltersBindings tokenFiltersBindings) {
-
+    @Override public void processAnalyzers(AnalyzersBindings analyzersBindings) {
+        analyzersBindings.processAnalyzer("mmseg", MMsegAnalyzerProvider.class);
+        super.processAnalyzers(analyzersBindings);
     }
 
     @Override
@@ -37,9 +38,8 @@ public class MMsegAnalysisBinderProcessor extends AnalysisModule.AnalysisBinderP
         super.processTokenizers(tokenizersBindings);
     }
 
-    @Override public void processAnalyzers(AnalyzersBindings analyzersBindings) {
-        analyzersBindings.processAnalyzer("mmseg", MMsegAnalyzerProvider.class);
-        super.processAnalyzers(analyzersBindings);
+    @Override public void processTokenFilters(TokenFiltersBindings tokenFiltersBindings) {
+
     }
 
 }

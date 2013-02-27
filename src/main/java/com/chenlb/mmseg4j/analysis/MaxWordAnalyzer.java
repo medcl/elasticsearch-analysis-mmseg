@@ -14,6 +14,10 @@ import com.chenlb.mmseg4j.Seg;
  */
 public class MaxWordAnalyzer extends MMSegAnalyzer {
 
+	public MaxWordAnalyzer() {
+		super();
+	}
+
 	public MaxWordAnalyzer(String path) {
 		super(path);
 	}

@@ -13,6 +13,10 @@ import com.chenlb.mmseg4j.Seg;
  */
 public class ComplexAnalyzer extends MMSegAnalyzer {
 
+	public ComplexAnalyzer() {
+		super();
+	}
+
 	public ComplexAnalyzer(String path) {
 		super(path);
 	}

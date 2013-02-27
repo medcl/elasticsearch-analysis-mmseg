@@ -21,15 +21,12 @@ import java.io.Reader;
  */
 public class MMsegTokenizerFactory extends AbstractTokenizerFactory {
 
-    private Settings settings;
     Dictionary dic;
     private String seg_type;
 
     @Inject
     public MMsegTokenizerFactory(Index index, @IndexSettings Settings indexSettings,Environment env, @Assisted String name, @Assisted Settings settings) {
         super(index, indexSettings, name, settings);
-        this.settings=settings;
-
         String path=new File(env.configFile(),"mmseg").getPath();
         logger.info(path);
         dic = Dictionary.getInstance(path);

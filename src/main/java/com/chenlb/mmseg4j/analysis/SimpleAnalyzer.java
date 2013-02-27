@@ -12,7 +12,10 @@ import com.chenlb.mmseg4j.SimpleSeg;
  * @author chenlb 2009-3-16 下午10:08:13
  */
 public class SimpleAnalyzer extends MMSegAnalyzer {
-
+	
+	public SimpleAnalyzer() {
+		super();
+	}
 	
 	public SimpleAnalyzer(String path) {
 		super(path);

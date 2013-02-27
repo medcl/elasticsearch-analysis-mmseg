@@ -7,7 +7,7 @@ import com.chenlb.mmseg4j.Chunk;
  * 
  * chuck中各个词的长度之和
  * 
- * @see //http://technology.chtsai.org/mmseg/
+ * @see http://technology.chtsai.org/mmseg/
  * 
  * @author chenlb 2009-3-16 上午09:47:51
  */

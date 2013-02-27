@@ -15,22 +15,24 @@ import com.chenlb.mmseg4j.Word;
 public class MMSegTokenizer extends Tokenizer {
 
 	private MMSeg mmSeg;
-	
+
 	private CharTermAttribute termAtt;
 	private OffsetAttribute offsetAtt;
 	private TypeAttribute typeAtt;
-	
+
 	public MMSegTokenizer(Seg seg, Reader input) {
 		super(input);
 		mmSeg = new MMSeg(input, seg);
-		
-		termAtt = (CharTermAttribute)addAttribute(CharTermAttribute.class);
-		offsetAtt = (OffsetAttribute)addAttribute(OffsetAttribute.class);
-		typeAtt = (TypeAttribute)addAttribute(TypeAttribute.class);
+
+		termAtt = addAttribute(CharTermAttribute.class);
+		offsetAtt = addAttribute(OffsetAttribute.class);
+		typeAtt = addAttribute(TypeAttribute.class);
 	}
-	
-	public void reset(Reader input) throws IOException {
-		super.reset(input);
+
+	public void reset() throws IOException {
+		//lucene 4.0
+		//org.apache.lucene.analysis.Tokenizer.setReader(Reader)
+		//setReader 自动被调用, input 自动被设置。
 		mmSeg.reset(input);
 	}
 
@@ -45,19 +47,19 @@ public class MMSegTokenizer extends Tokenizer {
 			reusableToken.setStartOffset(word.getStartOffset());
 			reusableToken.setEndOffset(word.getEndOffset());
 			reusableToken.setType(word.getType());
-			
+
 			token = reusableToken;
-			
+
 			//lucene 2.4
 			//token = reusableToken.reinit(word.getSen(), word.getWordOffset(), word.getLength(), word.getStartOffset(), word.getEndOffset(), word.getType());
 		}
-		
+
 		return token;
 	}*/
 
 	//lucene 2.9/3.0
 	@Override
-	public boolean incrementToken() throws IOException {
+	public final boolean incrementToken() throws IOException {
 		clearAttributes();
 		Word word = mmSeg.next();
 		if(word != null) {

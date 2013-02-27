@@ -7,7 +7,7 @@ import com.chenlb.mmseg4j.Chunk;
  * 
  * 各单字词词频的对数之和*100
  * 
- * @see //http://technology.chtsai.org/mmseg/
+ * @see http://technology.chtsai.org/mmseg/
  * 
  * @author chenlb 2009-3-16 上午11:28:30
  */

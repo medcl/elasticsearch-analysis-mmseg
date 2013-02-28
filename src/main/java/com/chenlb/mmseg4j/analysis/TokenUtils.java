@@ -10,7 +10,7 @@ import org.apache.lucene.analysis.tokenattributes.TypeAttribute;
 
 /**
  * lucene 3.0 从 TokenStream 得到 Token 比较麻烦。
- * 
+ *
  * @author chenlb 2010-10-7下午10:07:10
  */
 public class TokenUtils {
@@ -28,15 +28,15 @@ public class TokenUtils {
 		if(!input.incrementToken()) {
 			return null;
 		}
-		
-		CharTermAttribute termAtt = (CharTermAttribute)input.getAttribute(CharTermAttribute.class);
-		OffsetAttribute offsetAtt = (OffsetAttribute)input.getAttribute(OffsetAttribute.class);
-		TypeAttribute typeAtt = (TypeAttribute)input.getAttribute(TypeAttribute.class);
-		
+
+		CharTermAttribute termAtt = input.getAttribute(CharTermAttribute.class);
+		OffsetAttribute offsetAtt = input.getAttribute(OffsetAttribute.class);
+		TypeAttribute typeAtt = input.getAttribute(TypeAttribute.class);
+
 		if(reusableToken == null) {
 			reusableToken = new Token();
 		}
-		
+
 		reusableToken.clear();
 		if(termAtt != null) {
 			//lucene 3.0
@@ -45,14 +45,17 @@ public class TokenUtils {
 			reusableToken.copyBuffer(termAtt.buffer(), 0, termAtt.length());
 		}
 		if(offsetAtt != null) {
-			reusableToken.setStartOffset(offsetAtt.startOffset());
-			reusableToken.setEndOffset(offsetAtt.endOffset());
+			//lucene 3.1
+			//reusableToken.setStartOffset(offsetAtt.startOffset());
+			//reusableToken.setEndOffset(offsetAtt.endOffset());
+			//lucene 4.0
+			reusableToken.setOffset(offsetAtt.startOffset(), offsetAtt.endOffset());
 		}
-		
+
 		if(typeAtt != null) {
 			reusableToken.setType(typeAtt.type());
 		}
-		
+
 		return reusableToken;
 	}
 }

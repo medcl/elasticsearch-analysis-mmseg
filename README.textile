@@ -14,9 +14,12 @@ master | 0.20.1 → master
 Install
 -------------
 
-<pre>
+<del>
 bin/plugin -install medcl/elasticsearch-analysis-mmseg/1.1.2
-</pre>
+</del>
+
+you download this plugin from:
+https://github.com/medcl/elasticsearch-rtf/tree/master/elasticsearch/plugins/analysis-mmseg
 
 also download the dict files,unzip these dict file to your elasticsearch's config folder,such as: your-es-root/config/mmseg
 

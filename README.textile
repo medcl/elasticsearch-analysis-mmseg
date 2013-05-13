@@ -7,31 +7,21 @@ The plugin includes a `mmseg` analyzer and a `mmseg` tokenizer.
 
 Version
 -—————
-master | 0.20.1 → master
-1.1.2 | 0.20.1 → master
+master | 0.90.0 → master
+1.2.0 | 0.90.0
+1.1.2 | 0.20.1
 1.1.1 | 0.19.x
 
 Install
 -------------
 
-<del>
-bin/plugin -install medcl/elasticsearch-analysis-mmseg/1.1.2
-</del>
-
-you download this plugin from:
+you can download this plugin from RTF project(https://github.com/medcl/elasticsearch-rtf)
 https://github.com/medcl/elasticsearch-rtf/tree/master/elasticsearch/plugins/analysis-mmseg
 
-also download the dict files,unzip these dict file to your elasticsearch's config folder,such as: your-es-root/config/mmseg
-
-<pre>
-cd config
-wget http://github.com/downloads/medcl/elasticsearch-analysis-mmseg/mmseg.zip --no-check-certificate
-unzip mmseg.zip
-rm mmseg.zip
-</pre>
+download the dict files,unzip these dict file to your elasticsearch's config folder,such as: your-es-root/config/mmseg
+https://github.com/medcl/elasticsearch-rtf/tree/master/elasticsearch/config/mmseg
 
 you need a service restart after that!
-
 
 Analysis Configuration (elasticsearch.yml)
 -------------

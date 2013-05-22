@@ -1,21 +1,15 @@
 package com.chenlb.mmseg4j;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FilenameFilter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import org.elasticsearch.common.logging.ESLogger;
+import org.elasticsearch.common.logging.Loggers;
+
+import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * 词典类. 词库目录单例模式.<br/>
@@ -26,7 +20,7 @@ import java.util.logging.Logger;
  */
 public class Dictionary {
 
-	private static final Logger log = Logger.getLogger(Dictionary.class.getName());
+	private static final ESLogger log = Loggers.getLogger(Dictionary.class);
 
 	private File dicPath;	//词库目录
 	private volatile Map<Character, CharNode> dict;
@@ -73,7 +67,7 @@ public class Dictionary {
 	 * @param path 词典的目录
 	 */
 	public static Dictionary getInstance(File path) {
-		log.info("try to load dir="+path);
+//		log.info("try to load dir="+path);
 		File normalizeDir = normalizeFile(path);
 		Dictionary dic = dics.get(normalizeDir);
 		if(dic == null) {
@@ -376,9 +370,7 @@ public class Dictionary {
 			dict = oldDict;
 			unit = oldUnit;
 
-			if(log.isLoggable(Level.WARNING)) {
-				log.log(Level.WARNING, "reload dic error! dic="+dicPath+", and rollbacked.", e);
-			}
+            log.warn("reload dic error! dic="+dicPath+", and rollbacked.", e);
 
 			return false;
 		}
@@ -459,7 +451,7 @@ public class Dictionary {
 
 			defalutPath = new File(defPath);
 			if(!defalutPath.exists()) {
-				log.warning("defalut dic path="+defalutPath+" not exist");
+				log.warn("defalut dic path="+defalutPath+" not exist");
 			}
 		}
 		return defalutPath;

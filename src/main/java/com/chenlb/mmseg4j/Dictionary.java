@@ -20,7 +20,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class Dictionary {
 
-	private static final ESLogger log = Loggers.getLogger(Dictionary.class);
+	private static final ESLogger log = Loggers.getLogger("mmseg-analyzer");
 
 	private File dicPath;	//词库目录
 	private volatile Map<Character, CharNode> dict;
@@ -184,7 +184,7 @@ public class Dictionary {
 				}
 			}
 		});
-		log.info("chars loaded time="+(now()-s)+"ms, line="+lineNum+", on file="+charsFile);
+		log.info("chars loaded time="+(now()-s)+"ms, line="+lineNum+", on file="+charsFile.getName());
 
 		//try load words.dic in jar
 		InputStream wordsDicIn = this.getClass().getResourceAsStream("/data/words.dic");
@@ -215,7 +215,7 @@ public class Dictionary {
 	private void loadWord(InputStream is, Map<Character, CharNode> dic, File wordsFile) throws IOException {
 		long s = now();
 		int lineNum = load(is, new WordsFileLoading(dic)); //正常的词库
-		log.info("words loaded time="+(now()-s)+"ms, line="+lineNum+", on file="+wordsFile);
+		log.info("words loaded time="+(now()-s)+"ms, line="+lineNum+", on file="+wordsFile.getName());
 	}
 
 	private Map<Character, Object> loadUnit(File path) throws IOException {
@@ -241,7 +241,7 @@ public class Dictionary {
 				unit.put(line.charAt(0), Dictionary.class);
 			}
 		});
-		log.info("unit loaded time="+(now()-s)+"ms, line="+lineNum+", on file="+unitFile);
+		log.info("unit loaded time="+(now()-s)+"ms, line="+lineNum+", on file="+unitFile.getName());
 
 		return unit;
 	}

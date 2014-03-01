@@ -1,16 +1,15 @@
 package com.chenlb.mmseg4j.analysis;
 
-import java.io.IOException;
-import java.io.Reader;
-
+import com.chenlb.mmseg4j.MMSeg;
+import com.chenlb.mmseg4j.Seg;
+import com.chenlb.mmseg4j.Word;
 import org.apache.lucene.analysis.Tokenizer;
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 import org.apache.lucene.analysis.tokenattributes.OffsetAttribute;
 import org.apache.lucene.analysis.tokenattributes.TypeAttribute;
 
-import com.chenlb.mmseg4j.MMSeg;
-import com.chenlb.mmseg4j.Seg;
-import com.chenlb.mmseg4j.Word;
+import java.io.IOException;
+import java.io.Reader;
 
 public class MMSegTokenizer extends Tokenizer {
 
@@ -30,6 +29,7 @@ public class MMSegTokenizer extends Tokenizer {
 	}
 
 	public void reset() throws IOException {
+        super.reset();
 		//lucene 4.0
 		//org.apache.lucene.analysis.Tokenizer.setReader(Reader)
 		//setReader 自动被调用, input 自动被设置。

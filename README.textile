@@ -7,7 +7,9 @@ The plugin includes a `mmseg` analyzer and a `mmseg` tokenizer.
 
 Version
 -—————
-master | 0.90.0 → master
+master | 1.0.0 → master
+1.2.2 | 1.0.0
+1.2.1 | 0.90.2
 1.2.0 | 0.90.0
 1.1.2 | 0.20.1
 1.1.1 | 0.19.x

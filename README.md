@@ -3,17 +3,22 @@ Mmseg Analysis for ElasticSearch
 
 The Mmseg Analysis plugin integrates Lucene mmseg4j-analyzer:http://code.google.com/p/mmseg4j/ into elasticsearch, support customized dictionary.
 
-The plugin includes a `mmseg` analyzer and a `mmseg` tokenizer.
+The plugin ships with a `mmseg` analyzer ,a `mmseg` tokenizer and a `cut_letter_digit` token_filter.
 
-Version
--—————
-master | 1.0.0 → master
+Versions
+--------
+
+Mmseg ver  | ES version
+-----------|-----------
+master | 1.0.0 -> master
+1.4.0 | 1.7.0
 1.3.0 | 1.6.0
 1.2.2 | 1.0.0
 1.2.1 | 0.90.2
 1.2.0 | 0.90.0
 1.1.2 | 0.20.1
 1.1.1 | 0.19.x
+
 
 Install
 -------------
@@ -29,21 +34,20 @@ you need a service restart after that!
 Analysis Configuration (elasticsearch.yml)
 -------------
 
-<pre>
-
+```
 index:
   analysis:
     analyzer:
       mmseg:
-          alias: [news_analyzer, mmseg_analyzer]
-          type: org.elasticsearch.index.analysis.MMsegAnalyzerProvider
+        alias: [news_analyzer, mmseg_analyzer]
+        type: org.elasticsearch.index.analysis.MMsegAnalyzerProvider
 index.analysis.analyzer.default.type : "mmseg"
-</pre>
+```
 
 
 additional parameters that can be used to customize the mmseg tokenizer
 
-<pre>
+```
 index:
   analysis:
     tokenizer:
@@ -56,7 +60,13 @@ index:
       mmseg_simple:
           type: mmseg
           seg_type: "simple"
-</pre>
+      mmseg_maxword_with_cut_letter_digi:
+        type: custom
+        filter:
+        - lowercase
+        - cut_letter_digit
+        tokenizer: mmseg_maxword         
+```
 
 Mapping Configuration
 -------------
@@ -64,16 +74,14 @@ Mapping Configuration
 Here is a quick example:
 1.create a index
 
-<pre>
-
+```
 curl -XPUT http://localhost:9200/index
 
-</pre>
+```
 
 2.create a mapping
 
-<pre>
-
+```
 curl -XPOST http://localhost:9200/index/fulltext/_mapping -d'
 {
     "fulltext": {
@@ -96,12 +104,11 @@ curl -XPOST http://localhost:9200/index/fulltext/_mapping -d'
         }
     }
 }'
-</pre>
+```
 
 3.indexing some docs
 
-<pre>
-
+```
 curl -XPOST http://localhost:9200/index/fulltext/1 -d'
 {content:"美国留给伊拉克的是个烂摊子吗"}
 '
@@ -117,12 +124,11 @@ curl -XPOST http://localhost:9200/index/fulltext/3 -d'
 curl -XPOST http://localhost:9200/index/fulltext/4 -d'
 {content:"中国驻洛杉矶领事馆遭亚裔男子枪击 嫌犯已自首"}
 '
-</pre>
+```
 
 4.query with highlighting
 
-<pre>
-
+```
 curl -XPOST http://localhost:9200/index/fulltext/_search  -d'
 {
     "query" : { "term" : { "content" : "中国" }},
@@ -135,11 +141,11 @@ curl -XPOST http://localhost:9200/index/fulltext/_search  -d'
     }
 }
 '
-</pre>
+```
 
 here is the query result
 
-<pre>
+```
 
 {
     "took": 14,
@@ -185,7 +191,7 @@ here is the query result
     }
 }
 
-</pre>
+```
 
 
 have fun.

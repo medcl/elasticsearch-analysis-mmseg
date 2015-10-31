@@ -3,14 +3,15 @@ Mmseg Analysis for ElasticSearch
 
 The Mmseg Analysis plugin integrates Lucene mmseg4j-analyzer:http://code.google.com/p/mmseg4j/ into elasticsearch, support customized dictionary.
 
-The plugin ships with a `mmseg` analyzer ,a `mmseg` tokenizer and a `cut_letter_digit` token_filter.
+The plugin ships with analyzers: `mmseg_maxword`  ,`mmseg_complex` ,`mmseg_simple` and tokenizers: `mmseg_maxword`  ,`mmseg_complex` ,`mmseg_simple`  and token_filter: `cut_letter_digit` .
 
 Versions
 --------
 
 Mmseg ver  | ES version
 -----------|-----------
-master | 1.0.0 -> master
+master | 2.0.0 -> master
+1.5.0 | 2.0.0
 1.4.0 | 1.7.0
 1.3.0 | 1.6.0
 1.2.2 | 1.0.0
@@ -34,38 +35,22 @@ you need a service restart after that!
 Analysis Configuration (elasticsearch.yml)
 -------------
 
+
 ```
 index:
-  analysis:
+  analysis: 
     analyzer:
-      mmseg:
-        alias: [news_analyzer, mmseg_analyzer]
-        type: org.elasticsearch.index.analysis.MMsegAnalyzerProvider
-index.analysis.analyzer.default.type : "mmseg"
-```
-
-
-additional parameters that can be used to customize the mmseg tokenizer
-
-```
-index:
-  analysis:
-    tokenizer:
       mmseg_maxword:
-          type: mmseg
-          seg_type: "max_word"
-      mmseg_complex:
-          type: mmseg
-          seg_type: "complex"
-      mmseg_simple:
-          type: mmseg
-          seg_type: "simple"
+        type: custom
+        filter:
+        - lowercase
+        tokenizer: mmseg_maxword
       mmseg_maxword_with_cut_letter_digi:
         type: custom
         filter:
         - lowercase
         - cut_letter_digit
-        tokenizer: mmseg_maxword         
+        tokenizer: mmseg_maxword    
 ```
 
 Mapping Configuration
@@ -86,8 +71,8 @@ curl -XPOST http://localhost:9200/index/fulltext/_mapping -d'
 {
     "fulltext": {
              "_all": {
-            "indexAnalyzer": "mmseg",
-            "searchAnalyzer": "mmseg",
+            "analyzer": "mmseg_maxword",
+            "search_analyzer": "mmseg_maxword",
             "term_vector": "no",
             "store": "false"
         },
@@ -96,8 +81,8 @@ curl -XPOST http://localhost:9200/index/fulltext/_mapping -d'
                 "type": "string",
                 "store": "no",
                 "term_vector": "with_positions_offsets",
-                "indexAnalyzer": "mmseg",
-                "searchAnalyzer": "mmseg",
+                "analyzer": "mmseg_maxword",
+                "search_analyzer": "mmseg_maxword",
                 "include_in_all": "true",
                 "boost": 8
             }

@@ -27,13 +27,13 @@ public class MMsegTokenizerFactory extends AbstractTokenizerFactory {
     @Inject
     public MMsegTokenizerFactory(Index index, @IndexSettings Settings indexSettings,Environment env, @Assisted String name, @Assisted Settings settings) {
         super(index, indexSettings, name, settings);
-        String path=new File(env.configFile(),"mmseg").getPath();
+        String path=new File(env.configFile().toFile(),"mmseg").getPath();
         dic = Dictionary.getInstance(path);
         seg_type = settings.get("seg_type", "max_word");
     }
 
     @Override
-    public Tokenizer create(Reader reader) {
+    public Tokenizer create() {
         Seg seg_method=null;
         if(seg_type.equals("max_word")){
             seg_method = new MaxWordSeg(dic);
@@ -42,6 +42,6 @@ public class MMsegTokenizerFactory extends AbstractTokenizerFactory {
         }else if(seg_type.equals("simple")){
             seg_method =new SimpleSeg(dic);
         }
-        return  new MMSegTokenizer(seg_method,reader);
+        return  new MMSegTokenizer(seg_method);
     }
 }

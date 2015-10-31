@@ -19,8 +19,8 @@ public class MMSegTokenizer extends Tokenizer {
 	private OffsetAttribute offsetAtt;
 	private TypeAttribute typeAtt;
 
-	public MMSegTokenizer(Seg seg, Reader input) {
-		super(input);
+	public MMSegTokenizer(Seg seg) {
+		super();
 		mmSeg = new MMSeg(input, seg);
 
 		termAtt = addAttribute(CharTermAttribute.class);

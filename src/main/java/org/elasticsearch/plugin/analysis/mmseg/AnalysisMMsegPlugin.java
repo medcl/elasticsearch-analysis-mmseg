@@ -19,13 +19,17 @@
 
 package org.elasticsearch.plugin.analysis.mmseg;
 
+import org.elasticsearch.analysis.MMsegIndicesAnalysisModule;
 import org.elasticsearch.common.inject.Module;
 import org.elasticsearch.index.analysis.AnalysisModule;
 import org.elasticsearch.index.analysis.MMsegAnalysisBinderProcessor;
-import org.elasticsearch.plugins.AbstractPlugin;
+import org.elasticsearch.plugins.Plugin;
+
+import java.util.Collection;
+import java.util.Collections;
 
 
-public class AnalysisMMsegPlugin extends AbstractPlugin {
+public class AnalysisMMsegPlugin extends Plugin {
 
     @Override public String name() {
         return "analysis-mmseg";
@@ -37,10 +41,13 @@ public class AnalysisMMsegPlugin extends AbstractPlugin {
     }
 
 
-    @Override public void processModule(Module module) {
-        if (module instanceof AnalysisModule) {
-            AnalysisModule analysisModule = (AnalysisModule) module;
-            analysisModule.addProcessor(new MMsegAnalysisBinderProcessor());
-        }
+    @Override
+    public Collection<Module> nodeModules() {
+        return Collections.<Module>singletonList(new MMsegIndicesAnalysisModule());
+    }
+
+
+    public void onModule(AnalysisModule module) {
+        module.addProcessor(new MMsegAnalysisBinderProcessor());
     }
 }

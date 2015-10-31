@@ -38,10 +38,11 @@ import java.io.File;
 public class MMsegAnalyzerProvider extends AbstractIndexAnalyzerProvider<MMSegAnalyzer>  {
 
      private final MMSegAnalyzer analyzer;
+
     @Inject
     public MMsegAnalyzerProvider(Index index, @IndexSettings Settings indexSettings, Environment env, @Assisted String name, @Assisted Settings settings) {
         super(index, indexSettings, name, settings);
-        String path=new File(env.configFile(),"mmseg").getPath();
+        String path=new File(env.configFile().toFile(),"mmseg").getPath();
         analyzer=new MMSegAnalyzer(path);
     }
     @Override public MMSegAnalyzer get() {

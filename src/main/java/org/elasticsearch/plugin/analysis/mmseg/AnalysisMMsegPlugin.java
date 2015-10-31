@@ -19,7 +19,7 @@
 
 package org.elasticsearch.plugin.analysis.mmseg;
 
-import org.elasticsearch.analysis.MMsegIndicesAnalysisModule;
+import org.elasticsearch.indices.analysis.MMsegIndicesAnalysisModule;
 import org.elasticsearch.common.inject.Module;
 import org.elasticsearch.index.analysis.AnalysisModule;
 import org.elasticsearch.index.analysis.MMsegAnalysisBinderProcessor;

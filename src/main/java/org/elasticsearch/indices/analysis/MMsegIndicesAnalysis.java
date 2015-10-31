@@ -1,4 +1,4 @@
-package org.elasticsearch.analysis;
+package org.elasticsearch.indices.analysis;
 
 import com.chenlb.mmseg4j.*;
 import com.chenlb.mmseg4j.analysis.*;

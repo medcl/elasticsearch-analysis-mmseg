@@ -28,19 +28,19 @@ public class MMsegIndicesAnalysis extends AbstractComponent {
         final Dictionary dic = Dictionary.getInstance(path);
 
         indicesAnalysisService.analyzerProviderFactories().put("mmseg",
-                new PreBuiltAnalyzerProviderFactory("mmseg", AnalyzerScope.INDICES,
+                new PreBuiltAnalyzerProviderFactory("mmseg", AnalyzerScope.GLOBAL,
                         new MMSegAnalyzer(dic)));
 
         indicesAnalysisService.analyzerProviderFactories().put("mmseg_maxword",
-                new PreBuiltAnalyzerProviderFactory("mmseg_maxword", AnalyzerScope.INDICES,
+                new PreBuiltAnalyzerProviderFactory("mmseg_maxword", AnalyzerScope.GLOBAL,
                         new MaxWordAnalyzer(dic)));
 
         indicesAnalysisService.analyzerProviderFactories().put("mmseg_complex",
-                new PreBuiltAnalyzerProviderFactory("mmseg_complex", AnalyzerScope.INDICES,
+                new PreBuiltAnalyzerProviderFactory("mmseg_complex", AnalyzerScope.GLOBAL,
                         new ComplexAnalyzer(dic)));
 
         indicesAnalysisService.analyzerProviderFactories().put("mmseg_simple",
-                new PreBuiltAnalyzerProviderFactory("mmseg_simple", AnalyzerScope.INDICES,
+                new PreBuiltAnalyzerProviderFactory("mmseg_simple", AnalyzerScope.GLOBAL,
                         new SimpleAnalyzer(dic)));
 
         indicesAnalysisService.tokenizerFactories().put("mmseg",

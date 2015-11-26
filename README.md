@@ -24,9 +24,6 @@ master | 2.0.0 -> master
 Install
 -------------
 
-you can download this plugin from RTF project(https://github.com/medcl/elasticsearch-rtf)
-https://github.com/medcl/elasticsearch-rtf/tree/master/plugins/analysis-mmseg
-
 download the dict files,unzip these dict file to your elasticsearch's config folder,such as: your-es-root/config/mmseg
 https://github.com/medcl/elasticsearch-rtf/tree/master/config/mmseg
 

@@ -25,7 +25,7 @@ import org.elasticsearch.common.inject.assistedinject.Assisted;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.env.Environment;
 import org.elasticsearch.index.Index;
-import org.elasticsearch.index.settings.IndexSettings;
+import org.elasticsearch.index.settings.IndexSettingsService;
 
 import java.io.File;
 
@@ -40,8 +40,8 @@ public class MMsegAnalyzerProvider extends AbstractIndexAnalyzerProvider<MMSegAn
      private final MMSegAnalyzer analyzer;
 
     @Inject
-    public MMsegAnalyzerProvider(Index index, @IndexSettings Settings indexSettings, Environment env, @Assisted String name, @Assisted Settings settings) {
-        super(index, indexSettings, name, settings);
+    public MMsegAnalyzerProvider(Index index, IndexSettingsService indexSettings, Environment env, @Assisted String name, @Assisted Settings settings) {
+        super(index, indexSettings.getSettings(), name, settings);
         String path=new File(env.configFile().toFile(),"mmseg").getPath();
         analyzer=new MMSegAnalyzer(path);
     }

@@ -10,7 +10,7 @@ import org.elasticsearch.common.inject.assistedinject.Assisted;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.env.Environment;
 import org.elasticsearch.index.Index;
-import org.elasticsearch.index.settings.IndexSettings;
+import org.elasticsearch.index.settings.IndexSettingsService;
 
 import java.io.File;
 import java.io.Reader;
@@ -20,8 +20,8 @@ import java.io.Reader;
 public class CutLetterDigitTokenFilter extends AbstractTokenFilterFactory {
 
     @Inject
-    public CutLetterDigitTokenFilter(Index index, @IndexSettings Settings indexSettings, @Assisted String name, @Assisted Settings settings) {
-        super(index, indexSettings, name, settings);
+    public CutLetterDigitTokenFilter(Index index, IndexSettingsService indexSettings, @Assisted String name, @Assisted Settings settings) {
+        super(index, indexSettings.getSettings(), name, settings);
     }
 
     @Override public TokenStream create(TokenStream tokenStream) {

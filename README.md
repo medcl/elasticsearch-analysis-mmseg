@@ -11,7 +11,6 @@ Versions
 Mmseg ver  | ES version
 -----------|-----------
 master | 2.1.0 -> master
-master | 2.0.0 -> master
 1.6.0 | 2.1.0
 1.5.0 | 2.0.0
 1.4.0 | 1.7.0

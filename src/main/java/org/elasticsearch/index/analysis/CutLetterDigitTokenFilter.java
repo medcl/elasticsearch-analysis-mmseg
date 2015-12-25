@@ -17,6 +17,7 @@ import java.io.Reader;
 
 
 
+@Deprecated
 public class CutLetterDigitTokenFilter extends AbstractTokenFilterFactory {
 
     @Inject

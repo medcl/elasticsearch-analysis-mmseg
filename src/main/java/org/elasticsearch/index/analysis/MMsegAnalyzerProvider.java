@@ -35,6 +35,7 @@ import java.io.File;
  * Date: 8/2/11
  * Time: 4:44 PM
  */
+@Deprecated
 public class MMsegAnalyzerProvider extends AbstractIndexAnalyzerProvider<MMSegAnalyzer>  {
 
      private final MMSegAnalyzer analyzer;

@@ -25,6 +25,7 @@ package org.elasticsearch.index.analysis;
  * Date: 8/2/11
  * Time: 5:28 PM
  */
+@Deprecated
 public class MMsegAnalysisBinderProcessor extends AnalysisModule.AnalysisBinderProcessor  {
 
     @Override public void processAnalyzers(AnalyzersBindings analyzersBindings) {

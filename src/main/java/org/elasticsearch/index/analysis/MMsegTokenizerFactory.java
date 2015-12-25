@@ -19,6 +19,7 @@ import java.io.Reader;
  * Date: 12-6-6
  * Time: 下午3:59
  */
+@Deprecated
 public class MMsegTokenizerFactory extends AbstractTokenizerFactory {
 
     Dictionary dic;

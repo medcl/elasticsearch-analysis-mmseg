@@ -22,15 +22,20 @@ master | 2.1.0 -> master
 1.1.1 | 0.19.x
 
 
+Package
+-------------
+
+```
+mvn package
+```
+
 Install
 -------------
 
-download the dict files,unzip these dict file to your elasticsearch's config folder,such as: your-es-root/config/mmseg
-https://github.com/medcl/elasticsearch-rtf/tree/master/config/mmseg
+Unzip and place into elasticsearch's plugins folder,
+you can checkout example from https://github.com/medcl/elasticsearch-rtf
 
-you need a service restart after that!
-
-Analysis Configuration (elasticsearch.yml)
+Custom Analysis Configuration Example (elasticsearch.yml)
 -------------
 
 
@@ -55,14 +60,15 @@ Mapping Configuration
 -------------
 
 Here is a quick example:
-1.create a index
+
+1.Create a index
 
 ```
 curl -XPUT http://localhost:9200/index
 
 ```
 
-2.create a mapping
+2.Create a mapping
 
 ```
 curl -XPOST http://localhost:9200/index/fulltext/_mapping -d'
@@ -89,7 +95,7 @@ curl -XPOST http://localhost:9200/index/fulltext/_mapping -d'
 }'
 ```
 
-3.indexing some docs
+3.Indexing some docs
 
 ```
 curl -XPOST http://localhost:9200/index/fulltext/1 -d'
@@ -109,7 +115,7 @@ curl -XPOST http://localhost:9200/index/fulltext/4 -d'
 '
 ```
 
-4.query with highlighting
+4.Query with highlighting
 
 ```
 curl -XPOST http://localhost:9200/index/fulltext/_search  -d'
@@ -126,7 +132,7 @@ curl -XPOST http://localhost:9200/index/fulltext/_search  -d'
 '
 ```
 
-here is the query result
+Here is the query result
 
 ```
 
@@ -177,4 +183,4 @@ here is the query result
 ```
 
 
-have fun.
+Have fun.

@@ -28,8 +28,7 @@ public class MMsegTokenizerFactory extends AbstractTokenizerFactory {
     @Inject
     public MMsegTokenizerFactory(Index index, IndexSettingsService indexSettings,Environment env, @Assisted String name, @Assisted Settings settings) {
         super(index, indexSettings.getSettings(), name, settings);
-        String path=new File(env.configFile().toFile(),"mmseg").getPath();
-        dic = Dictionary.getInstance(path);
+        dic = Dictionary.getInstance();
         seg_type = settings.get("seg_type", "max_word");
     }
 

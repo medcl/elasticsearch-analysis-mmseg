@@ -24,8 +24,7 @@ public class MMsegIndicesAnalysis extends AbstractComponent {
     public MMsegIndicesAnalysis(final Settings settings,
                                 IndicesAnalysisService indicesAnalysisService,Environment env) {
         super(settings);
-        String path=new File(env.configFile().toFile(),"mmseg").getPath();
-        final Dictionary dic = Dictionary.getInstance(path);
+        final Dictionary dic = Dictionary.getInstance();
 
         indicesAnalysisService.analyzerProviderFactories().put("mmseg",
                 new PreBuiltAnalyzerProviderFactory("mmseg", AnalyzerScope.GLOBAL,

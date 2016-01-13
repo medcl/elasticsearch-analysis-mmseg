@@ -6,10 +6,10 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.elasticsearch</groupId>
     <artifactId>elasticsearch-analysis-mmseg</artifactId>
-    <version>1.6.2</version>
+    <version>1.7.0</version>
     <packaging>jar</packaging>
     <description>Mmseg Analyzer for ElasticSearch</description>
-    <inceptionYear>2009</inceptionYear>
+    <inceptionYear>2011</inceptionYear>
     <licenses>
         <license>
             <name>The Apache Software License, Version 2.0</name>

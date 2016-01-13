@@ -1,10 +1,13 @@
 package com.chenlb.mmseg4j;
 
+import org.elasticsearch.common.io.PathUtils;
 import org.elasticsearch.common.logging.ESLogger;
 import org.elasticsearch.common.logging.Loggers;
+import org.elasticsearch.plugin.analysis.mmseg.AnalysisMMsegPlugin;
 
 import java.io.*;
 import java.net.URL;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -52,8 +55,8 @@ public class Dictionary {
 	 * @see #getDefalutPath()
 	 */
 	public static Dictionary getInstance() {
-		File path = getDefalutPath();
-		return getInstance(path);
+		Path path = PathUtils.get(getDictRoot(), "mmseg");
+		return getInstance(path.toFile());
 	}
 
 	/**
@@ -67,7 +70,6 @@ public class Dictionary {
 	 * @param path 词典的目录
 	 */
 	public static Dictionary getInstance(File path) {
-//		log.info("try to load dir="+path);
 		File normalizeDir = normalizeFile(path);
 		Dictionary dic = dics.get(normalizeDir);
 		if(dic == null) {
@@ -184,7 +186,7 @@ public class Dictionary {
 				}
 			}
 		});
-		log.info("chars loaded time="+(now()-s)+"ms, line="+lineNum+", on file="+charsFile.getName());
+		log.info("[Dict Loading] chars loaded time="+(now()-s)+"ms, line="+lineNum+", on file="+charsFile.getName());
 
 		//try load words.dic in jar
 		InputStream wordsDicIn = this.getClass().getResourceAsStream("/data/words.dic");
@@ -202,7 +204,7 @@ public class Dictionary {
 			}
 		}
 
-		log.info("load all dic use time="+(now()-ss)+"ms");
+		log.debug("[Dict Loading] load all dic use time=" + (now()-ss)+"ms");
 		return dic;
 	}
 
@@ -215,7 +217,7 @@ public class Dictionary {
 	private void loadWord(InputStream is, Map<Character, CharNode> dic, File wordsFile) throws IOException {
 		long s = now();
 		int lineNum = load(is, new WordsFileLoading(dic)); //正常的词库
-		log.info("words loaded time="+(now()-s)+"ms, line="+lineNum+", on file="+wordsFile.getName());
+		log.info("[Dict Loading] words loaded time="+(now()-s)+"ms, line="+lineNum+", on file="+wordsFile.getName());
 	}
 
 	private Map<Character, Object> loadUnit(File path) throws IOException {
@@ -241,7 +243,7 @@ public class Dictionary {
 				unit.put(line.charAt(0), Dictionary.class);
 			}
 		});
-		log.info("unit loaded time="+(now()-s)+"ms, line="+lineNum+", on file="+unitFile.getName());
+		log.info("[Dict Loading] unit loaded time="+(now()-s)+"ms, line="+lineNum+", on file="+unitFile.getName());
 
 		return unit;
 	}
@@ -474,5 +476,11 @@ public class Dictionary {
 	/** 最后加载词库的时间 */
 	public long getLastLoadTime() {
 		return lastLoadTime;
+	}
+
+	public static String getDictRoot() {
+		return PathUtils.get(
+				new File(AnalysisMMsegPlugin.class.getProtectionDomain().getCodeSource().getLocation().getPath()).getParent(), "config")
+				.toAbsolutePath().toString();
 	}
 }

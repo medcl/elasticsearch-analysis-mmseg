@@ -10,6 +10,7 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
@@ -231,7 +232,7 @@ public class Dictionary {
 			unitFile = new File(Dictionary.class.getResource("/data/units.dic").getFile());
 		}
 
-		final Map<Character, Object> unit = new HashMap<Character, Object>();
+		final Map<Character, Object> localUnit = new HashMap<Character, Object>();
 
 		long s = now();
 		int lineNum = load(fin, new FileLoading() {
@@ -240,12 +241,12 @@ public class Dictionary {
 				if(line.length() != 1) {
 					return;
 				}
-				unit.put(line.charAt(0), Dictionary.class);
+				localUnit.put(line.charAt(0), Dictionary.class);
 			}
 		});
 		log.info("[Dict Loading] unit loaded time="+(now()-s)+"ms, line="+lineNum+", on file="+unitFile.getName());
 
-		return unit;
+		return localUnit;
 	}
 
 	/**
@@ -419,7 +420,7 @@ public class Dictionary {
 		return 0;
 	}
 
-	public ArrayList<Integer> maxMatch(CharNode node, ArrayList<Integer> tailLens, char[] sen, int offset) {
+	public List<Integer> maxMatch(CharNode node, List<Integer> tailLens, char[] sen, int offset) {
 		tailLens.clear();
 		tailLens.add(0);
 		if(node != null) {

@@ -2,6 +2,7 @@ package com.chenlb.mmseg4j;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -66,7 +67,7 @@ public class CharNode {
 	 * @return 至少返回一个包括 0的int
 	 * @author chenlb 2009-4-12 上午10:01:35
 	 */
-	public ArrayList<Integer> maxMatch(ArrayList<Integer> tailLens, char[] sen, int wordTailOffset) {
+	public List<Integer> maxMatch(List<Integer> tailLens, char[] sen, int wordTailOffset) {
 		return ktWordTails.maxMatch(tailLens, sen, wordTailOffset);
 	}
 	
@@ -115,7 +116,7 @@ public class CharNode {
 			return idx - offset + 1;
 		}
 		
-		public ArrayList<Integer> maxMatch(ArrayList<Integer> tailLens, char[] sen, int offset) {
+		public List<Integer> maxMatch(List<Integer> tailLens, char[] sen, int offset) {
 			TreeNode node = head;
 			for(int i=offset; i<sen.length; i++) {
 				node = node.subNode(sen[i]);

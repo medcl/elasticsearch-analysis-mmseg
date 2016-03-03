@@ -17,7 +17,7 @@ public class SimpleSeg extends Seg{
 		char[] chs = sen.getText();
 		for(int k=0; k<3&&!sen.isFinish(); k++) {
 			int offset = sen.getOffset();
-			int maxLen = 0;
+			int maxLen;
 
 			//有了 key tree 的支持可以从头开始 max match
 			maxLen = dic.maxMatch(chs, offset);

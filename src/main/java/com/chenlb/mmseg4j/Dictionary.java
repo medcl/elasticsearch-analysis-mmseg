@@ -152,7 +152,7 @@ public class Dictionary {
 	}
 
 	private Map<Character, CharNode> loadDic(File wordsPath) throws IOException {
-		InputStream charsIn = null;
+		InputStream charsIn;
 		File charsFile = new File(wordsPath, "chars.dic");
 		if(charsFile.exists()) {
 			charsIn = new FileInputStream(charsFile);
@@ -162,7 +162,7 @@ public class Dictionary {
 			charsFile = new File(this.getClass().getResource("/data/chars.dic").getFile());	//only for log
 		}
 		final Map<Character, CharNode> dic = new HashMap<Character, CharNode>();
-		int lineNum = 0;
+		int lineNum;
 		long s = now();
 		long ss = s;
 		lineNum = load(charsIn, new FileLoading() {	//单个字的
@@ -221,7 +221,7 @@ public class Dictionary {
 	}
 
 	private Map<Character, Object> loadUnit(File path) throws IOException {
-		InputStream fin = null;
+		InputStream fin;
 		File unitFile = new File(path, "units.dic");
 		if(unitFile.exists()) {
 			fin = new FileInputStream(unitFile);
@@ -283,7 +283,7 @@ public class Dictionary {
 	public static int load(InputStream fin, FileLoading loading) throws IOException {
 		BufferedReader br = new BufferedReader(
 				new InputStreamReader(new BufferedInputStream(fin), "UTF-8"));
-		String line = null;
+		String line;
 		int n = 0;
 		while((line = br.readLine()) != null) {
 			if(line == null || line.startsWith("#")) {

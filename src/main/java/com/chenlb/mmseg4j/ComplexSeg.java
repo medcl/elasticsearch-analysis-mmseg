@@ -108,7 +108,7 @@ public class ComplexSeg extends Seg{
 				System.out.println("-------remainChunks----------");
 				printChunk(chunks);
 			}
-			if(chunks.size() > 0) {
+			if(!chunks.isEmpty()) {
 				return chunks.get(0);
 			}
 		}

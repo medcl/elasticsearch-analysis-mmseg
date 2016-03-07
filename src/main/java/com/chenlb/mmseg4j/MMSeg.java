@@ -21,6 +21,7 @@ public class MMSeg {
 	private StringBuilder bufSentence = new StringBuilder(256);
 	private Sentence currentSentence;
 	private Queue<Word> bufWord;	// word 缓存, 因为有 chunk 分析三个以上.
+    private int readedIdx = 0;
 	
 	public MMSeg(Reader input, Seg seg) {
 		this.seg = seg;
@@ -28,8 +29,6 @@ public class MMSeg {
 		reset(input);
 	}
 
-	private int readedIdx = 0;
-	
 	public void reset(Reader input) {
 		this.reader = new PushbackReader(new BufferedReader(input), 20);
 		currentSentence = null;

@@ -2,6 +2,7 @@ package com.chenlb.mmseg4j;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * 分词抽象类.
@@ -10,6 +11,7 @@ import java.util.List;
  */
 public abstract class Seg {
 
+    private static final Logger LOGGER = Logger.getLogger(Seg.class.getName());
 	protected Dictionary dic;
 	
 	public Seg(Dictionary dic) {
@@ -22,7 +24,7 @@ public abstract class Seg {
 	 */
 	protected void printChunk(List<Chunk> chunks) {
 		for(Chunk ck : chunks) {
-			System.out.println(ck+" -> "+ck.toFactorString());
+		    LOGGER.info(ck+" -> "+ck.toFactorString());
 		}
 	}
 	

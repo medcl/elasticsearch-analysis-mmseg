@@ -111,7 +111,7 @@ public class ComplexSeg extends Seg{
 			    LOGGER.info("-------remainChunks----------");
 				printChunk(chunks);
 			}
-			if(chunks.size() > 0) {
+			if(!chunks.isEmpty()) {
 				return chunks.get(0);
 			}
 		}

@@ -38,6 +38,13 @@ public class Dictionary {
 	private static File defalutPath = null;
 	private static final ConcurrentHashMap<File, Dictionary> dics = new ConcurrentHashMap<File, Dictionary>();
 
+    /**
+     * 词典的目录
+     */
+    private Dictionary(File path) {
+        init(path);
+    }
+
 	protected void finalize() throws Throwable {
 		/*
 		 * 使 class reload 的时也可以释放词库
@@ -117,13 +124,6 @@ public class Dictionary {
 	public static Dictionary clear(File path) {
 		File normalizeDir = normalizeFile(path);
 		return dics.remove(normalizeDir);
-	}
-
-	/**
-	 * 词典的目录
-	 */
-	private Dictionary(File path) {
-		init(path);
 	}
 
 	private void init(File path) {

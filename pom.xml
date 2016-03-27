@@ -6,9 +6,9 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.elasticsearch</groupId>
     <artifactId>elasticsearch-analysis-mmseg</artifactId>
-    <version>1.8.0</version>
+    <version>1.8.1</version>
     <packaging>jar</packaging>
-    <description>Mmseg Analyzer for ElasticSearch</description>
+    <description>Mmseg Analyzer for Elasticsearch</description>
     <inceptionYear>2011</inceptionYear>
     <licenses>
         <license>
@@ -31,7 +31,7 @@
     </parent>
 
     <properties>
-        <elasticsearch.version>2.2.0</elasticsearch.version>
+        <elasticsearch.version>2.2.1</elasticsearch.version>
         <maven.compiler.target>1.7</maven.compiler.target>
         <elasticsearch.assembly.descriptor>${project.basedir}/src/main/assemblies/plugin.xml</elasticsearch.assembly.descriptor>
         <elasticsearch.plugin.name>elasticsearch-analysis-mmseg</elasticsearch.plugin.name>

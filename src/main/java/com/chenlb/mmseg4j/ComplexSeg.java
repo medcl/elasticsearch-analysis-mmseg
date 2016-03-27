@@ -2,6 +2,7 @@ package com.chenlb.mmseg4j;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import com.chenlb.mmseg4j.rule.LargestAvgLenRule;
 import com.chenlb.mmseg4j.rule.LargestSumDegreeFreedomRule;
@@ -17,6 +18,8 @@ import com.chenlb.mmseg4j.rule.SmallestVarianceRule;
  */
 public class ComplexSeg extends Seg{
 
+    private static final Logger LOGGER = Logger.getLogger(ComplexSeg.class.getName());
+    
 	private MaxMatchRule mmr = new MaxMatchRule();
 	private List<Rule> otherRules = new ArrayList<Rule>();
 	
@@ -44,7 +47,7 @@ public class ComplexSeg extends Seg{
 		mmr.reset();
 		if(!sen.isFinish()) {	//sen.getOffset() < chs.length
 			if(showChunk) {
-				System.out.println();
+				LOGGER.info("%n");
 			}
 			int maxLen = 0;
 			offsets[0] = sen.getOffset();
@@ -84,7 +87,7 @@ public class ComplexSeg extends Seg{
 							ck = createChunk(sen, chs, tailLen, offsets, cns);
 							mmr.addChunk(ck);
 						}
-						System.out.println(ck);
+						LOGGER.info(ck.toString());
 					}
 
 				}
@@ -93,7 +96,7 @@ public class ComplexSeg extends Seg{
 			List<Chunk> chunks = mmr.remainChunks();
 			for(Rule rule : otherRules) {	//其它规则过虑
 				if(showChunk) {
-					System.out.println("-------filter before "+rule+"----------");
+					LOGGER.info("-------filter before "+rule+"----------");
 					printChunk(chunks);
 				}
 				if(chunks.size() > 1) {
@@ -105,10 +108,10 @@ public class ComplexSeg extends Seg{
 				}
 			}
 			if(showChunk) {
-				System.out.println("-------remainChunks----------");
+			    LOGGER.info("-------remainChunks----------");
 				printChunk(chunks);
 			}
-			if(chunks.size() > 0) {
+			if(!chunks.isEmpty()) {
 				return chunks.get(0);
 			}
 		}

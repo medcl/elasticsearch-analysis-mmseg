@@ -23,25 +23,25 @@ import java.io.Reader;
 public class MMsegTokenizerFactory extends AbstractTokenizerFactory {
 
     Dictionary dic;
-    private String seg_type;
+    private String segType;
 
     @Inject
     public MMsegTokenizerFactory(Index index, IndexSettingsService indexSettings,Environment env, @Assisted String name, @Assisted Settings settings) {
         super(index, indexSettings.getSettings(), name, settings);
         dic = Dictionary.getInstance();
-        seg_type = settings.get("seg_type", "max_word");
+        segType = settings.get("seg_type", "max_word");
     }
 
     @Override
     public Tokenizer create() {
-        Seg seg_method=null;
-        if(seg_type.equals("max_word")){
-            seg_method = new MaxWordSeg(dic);
-        }else if(seg_type.equals("complex")){
-            seg_method = new ComplexSeg(dic);
-        }else if(seg_type.equals("simple")){
-            seg_method =new SimpleSeg(dic);
+        Seg segMethod=null;
+        if(segType.equals("max_word")){
+            segMethod = new MaxWordSeg(dic);
+        }else if(segType.equals("complex")){
+            segMethod = new ComplexSeg(dic);
+        }else if(segType.equals("simple")){
+            segMethod =new SimpleSeg(dic);
         }
-        return  new MMSegTokenizer(seg_method);
+        return  new MMSegTokenizer(segMethod);
     }
 }

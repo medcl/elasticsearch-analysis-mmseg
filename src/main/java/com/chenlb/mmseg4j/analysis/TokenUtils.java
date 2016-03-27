@@ -13,6 +13,10 @@ import org.apache.lucene.analysis.tokenattributes.*;
  */
 public class TokenUtils {
 
+    private TokenUtils() {
+        throw new AssertionError("Must not instantiate this class");
+    }
+    
 	/**
 	 * @param input
 	 * @param reusableToken is null well new one auto.

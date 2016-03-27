@@ -20,33 +20,38 @@ import java.io.File;
  */
 public class MMsegIndicesAnalysis extends AbstractComponent {
 
+    private static final String MMSEG = "mmseg";
+    private static final String MMSEG_MAXWORD = "";
+    private static final String MMSEG_COMPLEX = "mmseg_complex";
+    private static final String MMSEG_SIMPLE = "mmseg_simple";
+    private static final String CUT_LETTER_DIGIT= "cut_letter_digit";
     @Inject
     public MMsegIndicesAnalysis(final Settings settings,
                                 IndicesAnalysisService indicesAnalysisService,Environment env) {
         super(settings);
         final Dictionary dic = Dictionary.getInstance();
 
-        indicesAnalysisService.analyzerProviderFactories().put("mmseg",
-                new PreBuiltAnalyzerProviderFactory("mmseg", AnalyzerScope.GLOBAL,
+        indicesAnalysisService.analyzerProviderFactories().put(MMSEG,
+                new PreBuiltAnalyzerProviderFactory(MMSEG, AnalyzerScope.GLOBAL,
                         new MMSegAnalyzer(dic)));
 
-        indicesAnalysisService.analyzerProviderFactories().put("mmseg_maxword",
-                new PreBuiltAnalyzerProviderFactory("mmseg_maxword", AnalyzerScope.GLOBAL,
+        indicesAnalysisService.analyzerProviderFactories().put(MMSEG_MAXWORD,
+                new PreBuiltAnalyzerProviderFactory(MMSEG_MAXWORD, AnalyzerScope.GLOBAL,
                         new MaxWordAnalyzer(dic)));
 
-        indicesAnalysisService.analyzerProviderFactories().put("mmseg_complex",
-                new PreBuiltAnalyzerProviderFactory("mmseg_complex", AnalyzerScope.GLOBAL,
+        indicesAnalysisService.analyzerProviderFactories().put(MMSEG_COMPLEX,
+                new PreBuiltAnalyzerProviderFactory(MMSEG_COMPLEX, AnalyzerScope.GLOBAL,
                         new ComplexAnalyzer(dic)));
 
-        indicesAnalysisService.analyzerProviderFactories().put("mmseg_simple",
-                new PreBuiltAnalyzerProviderFactory("mmseg_simple", AnalyzerScope.GLOBAL,
+        indicesAnalysisService.analyzerProviderFactories().put(MMSEG_SIMPLE,
+                new PreBuiltAnalyzerProviderFactory(MMSEG_SIMPLE, AnalyzerScope.GLOBAL,
                         new SimpleAnalyzer(dic)));
 
-        indicesAnalysisService.tokenizerFactories().put("mmseg",
+        indicesAnalysisService.tokenizerFactories().put(MMSEG,
                 new PreBuiltTokenizerFactoryFactory(new TokenizerFactory() {
                     @Override
                     public String name() {
-                        return "mmseg";
+                        return MMSEG;
                     }
 
                     @Override
@@ -55,11 +60,11 @@ public class MMsegIndicesAnalysis extends AbstractComponent {
                     }
                 }));
 
-        indicesAnalysisService.tokenizerFactories().put("mmseg_maxword",
+        indicesAnalysisService.tokenizerFactories().put(MMSEG_MAXWORD,
                 new PreBuiltTokenizerFactoryFactory(new TokenizerFactory() {
                     @Override
                     public String name() {
-                        return "mmseg_maxword";
+                        return MMSEG_MAXWORD;
                     }
 
                     @Override
@@ -67,11 +72,11 @@ public class MMsegIndicesAnalysis extends AbstractComponent {
                         return new MMSegTokenizer(new MaxWordSeg(dic));
                     }
                 }));
-        indicesAnalysisService.tokenizerFactories().put("mmseg_complex",
+        indicesAnalysisService.tokenizerFactories().put(MMSEG_COMPLEX,
                 new PreBuiltTokenizerFactoryFactory(new TokenizerFactory() {
                     @Override
                     public String name() {
-                        return "mmseg_complex";
+                        return MMSEG_COMPLEX;
                     }
 
                     @Override
@@ -80,11 +85,11 @@ public class MMsegIndicesAnalysis extends AbstractComponent {
                     }
                 }));
 
-        indicesAnalysisService.tokenizerFactories().put("mmseg_simple",
+        indicesAnalysisService.tokenizerFactories().put(MMSEG_SIMPLE,
                 new PreBuiltTokenizerFactoryFactory(new TokenizerFactory() {
                     @Override
                     public String name() {
-                        return "mmseg_simple";
+                        return MMSEG_SIMPLE;
                     }
 
                     @Override
@@ -93,11 +98,11 @@ public class MMsegIndicesAnalysis extends AbstractComponent {
                     }
                 }));
 
-        indicesAnalysisService.tokenFilterFactories().put("cut_letter_digit",
+        indicesAnalysisService.tokenFilterFactories().put(CUT_LETTER_DIGIT,
                 new PreBuiltTokenFilterFactoryFactory(new TokenFilterFactory() {
                     @Override
                     public String name() {
-                        return "cut_letter_digit";
+                        return CUT_LETTER_DIGIT;
                     }
 
                     @Override

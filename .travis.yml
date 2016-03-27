@@ -1,0 +1,12 @@
+language: java
+script: mvn clean package
+deploy:
+  provider: releases
+  api_key:
+    secure: QA8JmcQrvno6cVFpPgmXpxauOeNtI/pG5vKhfVh9LktzcjSCKvPP/Pn/V8gVgoOlN9Esn/rbDXAuEFF9Pl6iBiOCNYCArCw+YlcJjbOYpIC/QR7rPlt1UoVrhXZ85vLqir10+9XdrZVzJts75XF8dl5oCFW1RhaRBeQS0Mt+RTI=
+  file: target/releases/elasticsearch-analysis-mmseg-*.zip
+  file_glob: true
+  on:
+    repo: medcl/elasticsearch-analysis-mmseg
+    tags: true
+

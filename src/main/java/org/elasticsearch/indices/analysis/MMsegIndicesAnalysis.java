@@ -21,7 +21,7 @@ import java.io.File;
 public class MMsegIndicesAnalysis extends AbstractComponent {
 
     private static final String MMSEG = "mmseg";
-    private static final String MMSEG_MAXWORD = "";
+    private static final String MMSEG_MAXWORD = "mmseg_maxword";
     private static final String MMSEG_COMPLEX = "mmseg_complex";
     private static final String MMSEG_SIMPLE = "mmseg_simple";
     private static final String CUT_LETTER_DIGIT= "cut_letter_digit";

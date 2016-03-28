@@ -47,7 +47,7 @@ public class AnalysisMMsegPlugin extends Plugin {
     }
 
 
-//    public void onModule(AnalysisModule module) {
-//        module.addProcessor(new MMsegAnalysisBinderProcessor());
-//    }
+    public void onModule(AnalysisModule module) {
+        module.addProcessor(new MMsegAnalysisBinderProcessor());
+    }
 }

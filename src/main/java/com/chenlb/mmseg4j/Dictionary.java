@@ -155,7 +155,6 @@ public class Dictionary {
 	private Map<Character, CharNode> loadDic(File wordsPath) throws IOException {
 		InputStream charsIn;
 		File charsFile = new File(wordsPath, "chars.dic");
-		System.out.println("ERROR:"+charsFile.getAbsolutePath());
 		if(charsFile.exists()) {
 			charsIn = new FileInputStream(charsFile);
 			addLastTime(charsFile);	//chars.dic 也检测是否变更

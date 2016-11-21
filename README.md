@@ -10,7 +10,8 @@ Versions
 
 Mmseg ver  | ES version
 -----------|-----------
-master | 2.4.x -> master
+master | 5.0.x -> master
+5.0.0 | 5.0.0
 1.10.1 | 2.4.1
 1.9.5 | 2.3.5
 1.8.1 | 2.2.1
@@ -43,7 +44,7 @@ Custom Analysis Configuration Example (elasticsearch.yml)
 index:
   analysis:
     analyzer:
-      mmseg_maxword:
+      my_mmseg_maxword:
         type: custom
         filter:
         - lowercase
@@ -82,7 +83,7 @@ curl -XPOST http://localhost:9200/index/fulltext/_mapping -d'
         },
         "properties": {
             "content": {
-                "type": "string",
+                "type": "text",
                 "store": "no",
                 "term_vector": "with_positions_offsets",
                 "analyzer": "mmseg_maxword",

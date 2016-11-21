@@ -19,35 +19,49 @@
 
 package org.elasticsearch.plugin.analysis.mmseg;
 
-import org.elasticsearch.indices.analysis.MMsegIndicesAnalysisModule;
-import org.elasticsearch.common.inject.Module;
-import org.elasticsearch.index.analysis.AnalysisModule;
-import org.elasticsearch.index.analysis.MMsegAnalysisBinderProcessor;
+import com.chenlb.mmseg4j.Dictionary;
+import org.apache.lucene.analysis.Analyzer;
+import org.elasticsearch.index.analysis.*;
+import org.elasticsearch.indices.analysis.AnalysisModule;
+import org.elasticsearch.plugins.AnalysisPlugin;
 import org.elasticsearch.plugins.Plugin;
 
-import java.util.Collection;
-import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 
-public class AnalysisMMsegPlugin extends Plugin {
+public class AnalysisMMsegPlugin extends Plugin implements AnalysisPlugin {
 
-    @Override public String name() {
-        return "analysis-mmseg";
-    }
-
-
-    @Override public String description() {
-        return "mmseg analysis";
-    }
-
+    final Dictionary dic = Dictionary.getInstance();
 
     @Override
-    public Collection<Module> nodeModules() {
-        return Collections.<Module>singletonList(new MMsegIndicesAnalysisModule());
+    public Map<String, AnalysisModule.AnalysisProvider<TokenizerFactory>> getTokenizers() {
+        Map<String, AnalysisModule.AnalysisProvider<TokenizerFactory>> extra = new HashMap<>();
+
+
+        extra.put("mmseg_maxword", MMsegTokenizerFactory::getMaxWord);
+        extra.put("mmseg_complex", MMsegTokenizerFactory::getComplex);
+        extra.put("mmseg_simple", MMsegTokenizerFactory::getSimple);
+
+        return extra;
     }
 
+    @Override
+    public Map<String, AnalysisModule.AnalysisProvider<org.elasticsearch.index.analysis.TokenFilterFactory>> getTokenFilters()  {
+        Map<String, AnalysisModule.AnalysisProvider<TokenFilterFactory>> extra = new HashMap<>();
+        extra.put("cut_letter_digit", CutLetterDigitTokenFilter::new);
 
-    public void onModule(AnalysisModule module) {
-        module.addProcessor(new MMsegAnalysisBinderProcessor());
+        return extra;
+    }
+
+    @Override
+    public Map<String, AnalysisModule.AnalysisProvider<AnalyzerProvider<? extends Analyzer>>> getAnalyzers() {
+        Map<String, AnalysisModule.AnalysisProvider<AnalyzerProvider<? extends Analyzer>>> extra = new HashMap<>();
+
+        extra.put("mmseg_maxword", MMsegAnalyzerProvider::getMaxWord);
+        extra.put("mmseg_complex", MMsegAnalyzerProvider::getComplex);
+        extra.put("mmseg_simple", MMsegAnalyzerProvider::getSimple);
+
+        return extra;
     }
 }

@@ -27,11 +27,11 @@
     <parent>
         <groupId>org.sonatype.oss</groupId>
         <artifactId>oss-parent</artifactId>
-        <version>7</version>
+        <version>9</version>
     </parent>
 
     <properties>
-        <elasticsearch.version>5.1.2</elasticsearch.version>
+        <elasticsearch.version>5.2.0</elasticsearch.version>
         <maven.compiler.target>1.8</maven.compiler.target>
         <elasticsearch.assembly.descriptor>${project.basedir}/src/main/assemblies/plugin.xml</elasticsearch.assembly.descriptor>
         <elasticsearch.plugin.name>analysis-mmseg</elasticsearch.plugin.name>
@@ -42,6 +42,17 @@
         <gpg.keyname>4E899B30</gpg.keyname>
         <gpg.useagent>true</gpg.useagent>
     </properties>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>oss.sonatype.org</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>oss.sonatype.org</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
 
   <repositories>
         <repository>

@@ -36,27 +36,7 @@ Install
 
 Unzip and place into elasticsearch's plugins folder,
 you can checkout example from https://github.com/medcl/elasticsearch-rtf
-
-Custom Analysis Configuration Example (elasticsearch.yml)
--------------
-
-
-```
-index:
-  analysis:
-    analyzer:
-      my_mmseg_maxword:
-        type: custom
-        filter:
-        - lowercase
-        tokenizer: mmseg_maxword
-      mmseg_maxword_with_cut_letter_digi:
-        type: custom
-        filter:
-        - lowercase
-        - cut_letter_digit
-        tokenizer: mmseg_maxword    
-```
+Download plugin from here: https://github.com/medcl/elasticsearch-analysis-mmseg/releases
 
 Mapping Configuration
 -------------

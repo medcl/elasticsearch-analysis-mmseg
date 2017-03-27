@@ -176,8 +176,10 @@ public class MMSeg {
 			if(currentSentence != null) {
 				do {
 					Chunk chunk = seg.seg(currentSentence);
-					for(int i=0; i<chunk.getCount(); i++) {
-						bufWord.add(chunk.getWords()[i]);
+					if(chunk!=null){
+						for(int i=0; i<chunk.getCount(); i++) {
+							bufWord.add(chunk.getWords()[i]);
+						}
 					}
 				} while (!currentSentence.isFinish());
 				

@@ -13,7 +13,12 @@ import com.chenlb.mmseg4j.Chunk;
  */
 public abstract class Rule {
 
-	protected List<Chunk> chunks;
+	public Rule(){
+		chunks= new ThreadLocal<>();
+		chunks.set(new ArrayList<>());
+	}
+
+	protected ThreadLocal<List<Chunk>> chunks;
 	
 	public void addChunks(List<Chunk> chunks) {
 		for(Chunk chunk : chunks) {
@@ -27,7 +32,7 @@ public abstract class Rule {
 	 * @author chenlb 2009-3-16 上午11:34:17
 	 */
 	public void addChunk(Chunk chunk) {
-		chunks.add(chunk);
+		chunks.get().add(chunk);
 	}
 	
 	/**
@@ -35,13 +40,14 @@ public abstract class Rule {
 	 * @author chenlb 2009-3-16 上午11:33:10
 	 */
 	public List<Chunk> remainChunks() {
-		for(Iterator<Chunk> it=chunks.iterator(); it.hasNext();) {
+		for(Iterator<Chunk> it=chunks.get().iterator(); it.hasNext();) {
 			Chunk chunk = it.next();
 			if(isRemove(chunk)) {
 				it.remove();
 			}
+
 		}
-		return chunks;
+		return chunks.get();
 	}
 	
 	/**
@@ -51,6 +57,13 @@ public abstract class Rule {
 	protected abstract boolean isRemove(Chunk chunk);
 	
 	public void reset() {
-		chunks = new ArrayList<Chunk>();
+		if(chunks!=null){
+			List<Chunk> o = chunks.get();
+			if(o!=null){
+				o.clear();
+			}else{
+				chunks.set(new ArrayList<>());
+			}
+		}
 	}
 }

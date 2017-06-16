@@ -21,10 +21,11 @@
         <dependencySet>
             <outputDirectory>/</outputDirectory>
             <useProjectArtifact>true</useProjectArtifact>
-            <useTransitiveFiltering>true</useTransitiveFiltering>
-            <excludes>
-                <exclude>org.elasticsearch:elasticsearch</exclude>
-            </excludes>
-        </dependencySet>        
+            <includes>
+              <include>mysql:*</include>
+              <include>com.mchange:*</include>
+              <include>org.elasticsearch:elasticsearch-analysis-mmseg</include>
+            </includes>
+        </dependencySet>
     </dependencySets>
 </assembly>

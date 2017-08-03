@@ -37,9 +37,10 @@ mvn package
 Install
 -------------
 
-Unzip and place into elasticsearch's plugins folder,
-Download plugin from here: https://github.com/medcl/elasticsearch-analysis-mmseg/releases
+Unzip and place into elasticsearch's plugins folder, download plugin from here: https://github.com/medcl/elasticsearch-analysis-mmseg/releases
+
 Install by command: `./bin/elasticsearch-plugin install https://github.com/medcl/elasticsearch-analysis-mmseg/releases/download/v5.5.1/elasticsearch-analysis-mmseg-5.5.1.zip`
+
 
 Mapping Configuration
 -------------

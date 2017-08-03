@@ -24,7 +24,6 @@ public class MMSegAnalyzer extends Analyzer {
 	 * @see Dictionary#getInstance()
 	 */
 	public MMSegAnalyzer() {
-		dic = Dictionary.getInstance();
 	}
 
 	/**

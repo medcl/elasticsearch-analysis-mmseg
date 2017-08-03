@@ -56,14 +56,14 @@ public class MMsegAnalyzerProvider extends AbstractIndexAnalyzerProvider<MMSegAn
     }
 
     public static AnalyzerProvider<? extends Analyzer> getMaxWord(IndexSettings indexSettings, Environment environment, String s, Settings settings) {
-        return  new MMsegAnalyzerProvider(indexSettings,environment,s,settings,new MaxWordAnalyzer(Dictionary.getInstance()));
+        return  new MMsegAnalyzerProvider(indexSettings,environment,s,settings,new MaxWordAnalyzer(Dictionary.getInstance(environment.configFile())));
     }
 
     public static AnalyzerProvider<? extends Analyzer> getComplex(IndexSettings indexSettings, Environment environment, String s, Settings settings) {
-        return  new MMsegAnalyzerProvider(indexSettings,environment,s,settings,new ComplexAnalyzer(Dictionary.getInstance()));
+        return  new MMsegAnalyzerProvider(indexSettings,environment,s,settings,new ComplexAnalyzer(Dictionary.getInstance(environment.configFile())));
     }
 
     public static AnalyzerProvider<? extends Analyzer> getSimple(IndexSettings indexSettings, Environment environment, String s, Settings settings) {
-        return  new MMsegAnalyzerProvider(indexSettings,environment,s,settings,new SimpleAnalyzer(Dictionary.getInstance()));
+        return  new MMsegAnalyzerProvider(indexSettings,environment,s,settings,new SimpleAnalyzer(Dictionary.getInstance(environment.configFile())));
     }
 }

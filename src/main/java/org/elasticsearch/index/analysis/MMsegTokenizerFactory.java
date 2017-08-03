@@ -29,14 +29,14 @@ public class MMsegTokenizerFactory extends AbstractTokenizerFactory {
 
     public static TokenizerFactory getMaxWord(IndexSettings indexSettings, Environment environment, String name, Settings settings) {
 
-        return new MMsegTokenizerFactory(indexSettings,environment,name,settings,new MaxWordSeg(Dictionary.getInstance()));
+        return new MMsegTokenizerFactory(indexSettings,environment,name,settings,new MaxWordSeg(Dictionary.getInstance(environment.configFile())));
     }
 
     public static TokenizerFactory getComplex(IndexSettings indexSettings, Environment environment, String s, Settings settings) {
-        return new MMsegTokenizerFactory(indexSettings,environment,s,settings,new ComplexSeg(Dictionary.getInstance()));
+        return new MMsegTokenizerFactory(indexSettings,environment,s,settings,new ComplexSeg(Dictionary.getInstance(environment.configFile())));
     }
 
     public static TokenizerFactory getSimple(IndexSettings indexSettings, Environment environment, String s, Settings settings) {
-        return new MMsegTokenizerFactory(indexSettings,environment,s,settings,new SimpleSeg(Dictionary.getInstance()));
+        return new MMsegTokenizerFactory(indexSettings,environment,s,settings,new SimpleSeg(Dictionary.getInstance(environment.configFile())));
     }
 }

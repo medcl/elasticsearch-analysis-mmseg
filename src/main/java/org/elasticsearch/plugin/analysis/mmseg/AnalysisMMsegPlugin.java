@@ -32,8 +32,6 @@ import java.util.Map;
 
 public class AnalysisMMsegPlugin extends Plugin implements AnalysisPlugin {
 
-    final Dictionary dic = Dictionary.getInstance();
-
     @Override
     public Map<String, AnalysisModule.AnalysisProvider<TokenizerFactory>> getTokenizers() {
         Map<String, AnalysisModule.AnalysisProvider<TokenizerFactory>> extra = new HashMap<>();

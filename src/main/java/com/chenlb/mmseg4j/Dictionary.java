@@ -52,26 +52,22 @@ public class Dictionary {
 		destroy();
 	}
 
-	/**
-	 * 从默认目录加载词库文件.<p/>
-	 * 查找默认目录顺序:
-	 * <ol>
-	 * <li>从系统属性mmseg.dic.path指定的目录中加载</li>
-	 * <li>从classpath/data目录</li>
-	 * <li>从user.dir/data目录</li>
-	 * </ol>
-	 * @see #getDefalutPath()
-	 */
-	public static Dictionary getInstance() {
-		Path path = PathUtils.get(getDictRoot(), "mmseg");
-		return getInstance(path.toFile());
-	}
+		public static Dictionary getInstance(String path) {
+		               return getInstance(new File(path));
+		}
 
-	/**
-	 * @param path 词典的目录
-	 */
-	public static Dictionary getInstance(String path) {
-		return getInstance(new File(path));
+
+		/**
+         * @param path 词典的目录
+         */
+	public static Dictionary getInstance(Path path) {
+		File config = PathUtils.get(path.toString(), "analysis-mmseg").toFile();
+		// if config not in elasticsearch's config folder, try plugin relative folder
+		if(!config.exists()){
+			config=PathUtils.get(getDictRoot()).toFile();
+		}
+
+		return getInstance(config);
 	}
 
 	/**

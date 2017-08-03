@@ -38,8 +38,8 @@ Install
 -------------
 
 Unzip and place into elasticsearch's plugins folder,
-you can checkout example from https://github.com/medcl/elasticsearch-rtf
 Download plugin from here: https://github.com/medcl/elasticsearch-analysis-mmseg/releases
+Install by command: `./bin/elasticsearch-plugin install https://github.com/medcl/elasticsearch-analysis-mmseg/releases/download/v5.5.1/elasticsearch-analysis-mmseg-5.5.1.zip`
 
 Mapping Configuration
 -------------
@@ -58,25 +58,15 @@ curl -XPUT http://localhost:9200/index
 ```
 curl -XPOST http://localhost:9200/index/fulltext/_mapping -d'
 {
-    "fulltext": {
-             "_all": {
-            "analyzer": "mmseg_maxword",
-            "search_analyzer": "mmseg_maxword",
-            "term_vector": "no",
-            "store": "false"
-        },
         "properties": {
             "content": {
                 "type": "text",
-                "store": "no",
                 "term_vector": "with_positions_offsets",
                 "analyzer": "mmseg_maxword",
-                "search_analyzer": "mmseg_maxword",
-                "include_in_all": "true",
-                "boost": 8
+                "search_analyzer": "mmseg_maxword"
             }
         }
-    }
+    
 }'
 ```
 

@@ -11,7 +11,7 @@ Versions
 Mmseg ver  | ES version
 -----------|-----------
 master | 5.x -> master
-5.5.1 | 5.5.1
+5.5.2 | 5.5.2
 5.4.3 | 5.4.3
 5.3.2 | 5.3.2
 5.2.2 | 5.2.2
@@ -39,7 +39,7 @@ Install
 
 Unzip and place into elasticsearch's plugins folder, download plugin from here: https://github.com/medcl/elasticsearch-analysis-mmseg/releases
 
-Install by command: `./bin/elasticsearch-plugin install https://github.com/medcl/elasticsearch-analysis-mmseg/releases/download/v5.5.1/elasticsearch-analysis-mmseg-5.5.1.zip`
+Install by command: `./bin/elasticsearch-plugin install https://github.com/medcl/elasticsearch-analysis-mmseg/releases/download/v5.5.2/elasticsearch-analysis-mmseg-5.5.2.zip`
 
 
 Mapping Configuration

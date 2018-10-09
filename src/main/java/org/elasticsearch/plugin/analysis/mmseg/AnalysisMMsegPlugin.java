@@ -19,7 +19,6 @@
 
 package org.elasticsearch.plugin.analysis.mmseg;
 
-import com.chenlb.mmseg4j.Dictionary;
 import org.apache.lucene.analysis.Analyzer;
 import org.elasticsearch.index.analysis.*;
 import org.elasticsearch.indices.analysis.AnalysisModule;

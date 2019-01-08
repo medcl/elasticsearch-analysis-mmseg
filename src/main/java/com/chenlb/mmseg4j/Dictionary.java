@@ -2,7 +2,7 @@ package com.chenlb.mmseg4j;
 
 import org.elasticsearch.common.io.PathUtils;
 import org.apache.logging.log4j.Logger;
-import org.elasticsearch.common.logging.ESLoggerFactory;
+import org.elasticsearch.common.logging.Loggers;
 import org.elasticsearch.plugin.analysis.mmseg.AnalysisMMsegPlugin;
 
 import java.io.*;
@@ -24,7 +24,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class Dictionary {
 
-	private static final Logger log = ESLoggerFactory.getLogger(Dictionary.class.getName());
+	private static final Logger log = Loggers.getLogger(Dictionary.class.getName());
 
 	private File dicPath;	//词库目录
 	private volatile Map<Character, CharNode> dict;

@@ -21,9 +21,8 @@
         <connection>scm:git:git@github.com:medcl/elasticsearch-analysis-mmseg.git</connection>
         <developerConnection>scm:git:git@github.com:medcl/elasticsearch-analysis-mmseg.git
         </developerConnection>
-        <url>http://github.com/medcl/elasticsearch-analysis-mmseg</url>
-    </scm>
-
+		<url>http://github.com/medcl/elasticsearch-analysis-mmseg</url>
+	</scm>
     <parent>
         <groupId>org.sonatype.oss</groupId>
         <artifactId>oss-parent</artifactId>
@@ -63,21 +62,37 @@
             <url>http://oss.sonatype.org/content/repositories/releases/</url>
         </repository>
     </repositories>
+	<dependencies>
+		<dependency>
+			<groupId>org.elasticsearch</groupId>
+			<artifactId>elasticsearch</artifactId>
+			<version>${elasticsearch.version}</version>
+			<scope>compile</scope>
+		</dependency>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.elasticsearch</groupId>
-            <artifactId>elasticsearch</artifactId>
-            <version>${elasticsearch.version}</version>
-            <scope>compile</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest-core</artifactId>
-            <version>1.3.RC2</version>
-            <scope>test</scope>
-        </dependency>
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-core</artifactId>
+			<version>1.3.RC2</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.6</version>
+		</dependency>
+		<dependency>
+			<groupId>com.mchange</groupId>
+			<artifactId>c3p0</artifactId>
+			<version>0.9.5.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-library</artifactId>
+			<version>1.3.RC2</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
 
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>

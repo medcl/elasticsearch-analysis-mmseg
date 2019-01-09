@@ -1,7 +1,5 @@
 package com.chenlb.mmseg4j.analysis;
 
-import java.io.File;
-
 import com.chenlb.mmseg4j.ComplexSeg;
 import com.chenlb.mmseg4j.Dictionary;
 import com.chenlb.mmseg4j.Seg;
@@ -17,19 +15,12 @@ public class ComplexAnalyzer extends MMSegAnalyzer {
 		super();
 	}
 
-	public ComplexAnalyzer(String path) {
-		super(path);
-	}
 	
 	public ComplexAnalyzer(Dictionary dic) {
 		super(dic);
 	}
 
-	public ComplexAnalyzer(File path) {
-		super(path);
-	}
-
 	protected Seg newSeg() {
-		return new ComplexSeg(dic);
+		return new ComplexSeg(getDict());
 	}
 }

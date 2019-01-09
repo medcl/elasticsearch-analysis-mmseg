@@ -20,7 +20,7 @@ public class SimpleSeg extends Seg{
 			int maxLen;
 
 			//有了 key tree 的支持可以从头开始 max match
-			maxLen = dic.maxMatch(chs, offset);
+			maxLen = getDic().maxMatch(chs, offset);
 			
 			chunk.words[k] = new Word(chs, sen.getStartOffset(), offset, maxLen+1);
 

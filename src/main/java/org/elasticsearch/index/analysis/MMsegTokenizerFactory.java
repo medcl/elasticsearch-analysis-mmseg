@@ -27,16 +27,26 @@ public class MMsegTokenizerFactory extends AbstractTokenizerFactory {
         return  new MMSegTokenizer(seg);
     }
 
-    public static TokenizerFactory getMaxWord(IndexSettings indexSettings, Environment environment, String name, Settings settings) {
+    private static String getAppId(IndexSettings indexSettings) {
+        Settings customSettings = indexSettings.getIndexMetaData().getSettings().getAsSettings("index.analysis.analyzer.app_custom");
+        return customSettings.get("app_id");
+    };
 
-        return new MMsegTokenizerFactory(indexSettings,environment,name,settings,new MaxWordSeg(Dictionary.getInstance(environment.configFile())));
+    public static TokenizerFactory getMaxWord(IndexSettings indexSettings, Environment environment, String name, Settings settings) {
+        String appId = getAppId(indexSettings);
+        Dictionary dict = DictionaryProvider.getInstance().getDictionary(appId);
+        return new MMsegTokenizerFactory(indexSettings,environment,name,settings,new MaxWordSeg(dict));
     }
 
     public static TokenizerFactory getComplex(IndexSettings indexSettings, Environment environment, String s, Settings settings) {
-        return new MMsegTokenizerFactory(indexSettings,environment,s,settings,new ComplexSeg(Dictionary.getInstance(environment.configFile())));
+        String appId = getAppId(indexSettings);
+        Dictionary dict = DictionaryProvider.getInstance().getDictionary(appId);
+        return new MMsegTokenizerFactory(indexSettings,environment,s,settings,new ComplexSeg(dict));
     }
 
     public static TokenizerFactory getSimple(IndexSettings indexSettings, Environment environment, String s, Settings settings) {
-        return new MMsegTokenizerFactory(indexSettings,environment,s,settings,new SimpleSeg(Dictionary.getInstance(environment.configFile())));
+        String appId = getAppId(indexSettings);
+        Dictionary dict = DictionaryProvider.getInstance().getDictionary(appId);
+        return new MMsegTokenizerFactory(indexSettings,environment,s,settings,new SimpleSeg(dict));
     }
 }

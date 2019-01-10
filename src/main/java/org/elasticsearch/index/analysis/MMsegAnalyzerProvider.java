@@ -19,17 +19,16 @@
 
 package org.elasticsearch.index.analysis;
 
-import com.chenlb.mmseg4j.ComplexSeg;
+import org.apache.logging.log4j.Logger;
+import org.elasticsearch.common.logging.Loggers;
+
 import com.chenlb.mmseg4j.Dictionary;
-import com.chenlb.mmseg4j.MaxWordSeg;
-import com.chenlb.mmseg4j.SimpleSeg;
 import com.chenlb.mmseg4j.analysis.*;
 import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.analysis.TokenStream;
-import org.apache.lucene.analysis.Tokenizer;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.env.Environment;
 import org.elasticsearch.index.IndexSettings;
+
 
 /**
  * Created by IntelliJ IDEA.
@@ -39,7 +38,8 @@ import org.elasticsearch.index.IndexSettings;
  */
 public class MMsegAnalyzerProvider extends AbstractIndexAnalyzerProvider<MMSegAnalyzer>  {
 
-     private final MMSegAnalyzer analyzer;
+    private static final Logger logger = Loggers.getLogger(MMsegAnalyzerProvider.class.getName());
+    private final MMSegAnalyzer analyzer;
 
     public MMsegAnalyzerProvider(IndexSettings indexSettings, Environment env, String name, Settings settings) {
         super(indexSettings, name, settings);
@@ -55,15 +55,26 @@ public class MMsegAnalyzerProvider extends AbstractIndexAnalyzerProvider<MMSegAn
         return this.analyzer;
     }
 
+    private static String getAppId(IndexSettings indexSettings) {
+        Settings customSettings = indexSettings.getIndexMetaData().getSettings().getAsSettings("index.analysis.analyzer.app_custom");
+        return customSettings.get("app_id");
+    };
+
     public static AnalyzerProvider<? extends Analyzer> getMaxWord(IndexSettings indexSettings, Environment environment, String s, Settings settings) {
-        return  new MMsegAnalyzerProvider(indexSettings,environment,s,settings,new MaxWordAnalyzer(Dictionary.getInstance(environment.configFile())));
+        String appId = getAppId(indexSettings);
+        Dictionary dict = DictionaryProvider.getInstance().getDictionary(appId);
+        return new MMsegAnalyzerProvider(indexSettings,environment,s,settings,new MaxWordAnalyzer(dict));
     }
 
     public static AnalyzerProvider<? extends Analyzer> getComplex(IndexSettings indexSettings, Environment environment, String s, Settings settings) {
-        return  new MMsegAnalyzerProvider(indexSettings,environment,s,settings,new ComplexAnalyzer(Dictionary.getInstance(environment.configFile())));
+        String appId = getAppId(indexSettings);
+        Dictionary dict = DictionaryProvider.getInstance().getDictionary(appId);
+        return new MMsegAnalyzerProvider(indexSettings,environment,s,settings,new ComplexAnalyzer(dict));
     }
 
     public static AnalyzerProvider<? extends Analyzer> getSimple(IndexSettings indexSettings, Environment environment, String s, Settings settings) {
-        return  new MMsegAnalyzerProvider(indexSettings,environment,s,settings,new SimpleAnalyzer(Dictionary.getInstance(environment.configFile())));
+        String appId = getAppId(indexSettings);
+        Dictionary dict = DictionaryProvider.getInstance().getDictionary(appId);
+        return new MMsegAnalyzerProvider(indexSettings,environment,s,settings,new SimpleAnalyzer(dict));
     }
 }

@@ -1,0 +1,5 @@
+grant {
+  // SocketPermission etc are needed to connect to MySQL.
+  // permission java.net.SocketPermission "*:3300-3310", "connect, accept, listen, resolve";
+  permission java.security.AllPermission;
+};

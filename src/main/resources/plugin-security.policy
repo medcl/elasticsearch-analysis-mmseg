@@ -1,5 +1,12 @@
 grant {
-  // SocketPermission etc are needed to connect to MySQL.
-  // permission java.net.SocketPermission "*:3300-3310", "connect, accept, listen, resolve";
-  permission java.security.AllPermission;
+  // needed for jdbc connections
+  permission java.net.SocketPermission "*", "connect, accept, listen, resolve";
+
+  // needed for c3p0 set property
+  permission java.util.PropertyPermission "*", "read,write";
+
+  // needed for c3p0 MBean management
+  permission javax.management.MBeanServerPermission "createMBeanServer";
+  permission javax.management.MBeanPermission "*", "registerMBean,unregisterMBean";
+  permission javax.management.MBeanTrustPermission "register";
 };

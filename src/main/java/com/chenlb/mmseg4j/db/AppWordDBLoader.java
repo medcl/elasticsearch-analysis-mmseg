@@ -11,16 +11,23 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 import org.elasticsearch.common.io.PathUtils;
-import org.elasticsearch.common.logging.ESLogger;
+
+import org.apache.logging.log4j.Logger;
 import org.elasticsearch.common.logging.Loggers;
 
 import com.chenlb.mmseg4j.Dictionary;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 
+import org.elasticsearch.SpecialPermission;
+import java.security.AccessController;
+import java.security.PrivilegedActionException;
+import java.security.PrivilegedExceptionAction;
+import java.security.PrivilegedAction;
+
 public class AppWordDBLoader {
 
-    private static final ESLogger log = Loggers.getLogger("mmseg-analyzer");
+    private static final Logger log = Loggers.getLogger(AppWordDBLoader.class.getName());
     static {
         try {
             System.setProperty("com.mchange.v2.c3p0.management.ManagementCoordinator",
@@ -41,7 +48,18 @@ public class AppWordDBLoader {
 
 
     private void init() {
-        ds = new ComboPooledDataSource();
+
+        // see https://www.elastic.co/guide/en/elasticsearch/plugins/current/plugin-authors.html
+        SecurityManager sm = System.getSecurityManager();
+        if (sm != null) {
+            // unprivileged code such as scripts do not have SpecialPermission
+            sm.checkPermission(new SpecialPermission());
+        }
+        ds = (ComboPooledDataSource) AccessController.doPrivileged((PrivilegedAction<ComboPooledDataSource>)
+                () -> {
+                    return new ComboPooledDataSource();
+                }
+        );
         FileInputStream in = null;
         Properties props = new Properties();
 
@@ -53,7 +71,7 @@ public class AppWordDBLoader {
             ds.setUser(props.getProperty("username"));
             ds.setPassword(props.getProperty("password"));
             ds.setMaxPoolSize(Integer.parseInt(props.getProperty("maxPoolSize", "300")));
-            ds.setMinPoolSize(Integer.parseInt(props.getProperty("minPoolSize", "30")));
+            ds.setMinPoolSize(Integer.parseInt(props.getProperty("minPoolSize", "3")));
 
         }
         catch (Exception e) {
@@ -84,41 +102,55 @@ public class AppWordDBLoader {
     public InputStream getWordStreamFromDB(String appId) throws IOException {
         if (this.ds == null)
             return null;
-        PreparedStatement pstmt = null;
-        Connection conn = null;
+        String words;
+
         try {
-            conn = this.ds.getConnection();
-            pstmt = conn.prepareStatement("select words from app_search_words where app_id=?");
-            pstmt.setString(1, appId);
-            ResultSet rs = pstmt.executeQuery();
-            if (rs.next()) {
-                String words = rs.getString("words");
-                if (words != null) {
-                    return new ByteArrayInputStream(words.getBytes("UTF-8"));
-                }
+            SecurityManager sm = System.getSecurityManager();
+            if (sm != null) {
+                sm.checkPermission(new SpecialPermission());
             }
-        }
-        catch (Exception e) {
-            log.error("Execute sql failed.", e);
-            throw new IOException("Execute sql failed", e);
-        }
-        finally {
-            if (pstmt != null) {
-                try {
-                    pstmt.close();
-                }
-                catch (SQLException e) {
+            words = (String) AccessController.doPrivileged((PrivilegedExceptionAction<String>)
+                    () -> {
+                        PreparedStatement pstmt = null;
+                        Connection conn = null;
 
-                }
-            }
-            if (conn != null) {
-                try {
-                    conn.close();
-                }
-                catch (Exception e) {
+                        try {
+                            conn = this.ds.getConnection();
+                            pstmt = conn.prepareStatement("select words from app_search_words where app_id=?");
+                            pstmt.setString(1, appId);
+                            ResultSet rs = pstmt.executeQuery();
+                            if (rs.next()) {
+                                return rs.getString("words");
+                            }
+                        } finally {
+                            if (pstmt != null) {
+                                try {
+                                    pstmt.close();
+                                } catch (SQLException e) {
 
-                }
-            }
+                                }
+                            }
+                            if (conn != null) {
+                                try {
+                                    conn.close();
+                                } catch (Exception e) {
+
+                                }
+                            }
+                        }
+                        return null;
+                    });
+        } catch (PrivilegedActionException e) {
+
+            // e.getException() should be an instance of IOException
+            // as only checked exceptions will be wrapped in a
+            // PrivilegedActionException.
+            log.error("Execute sql failed.", e.getException());
+            throw (IOException) e.getException();
+        }
+
+        if (words != null) {
+            return new ByteArrayInputStream(words.getBytes("UTF-8"));
         }
         return null;
     }

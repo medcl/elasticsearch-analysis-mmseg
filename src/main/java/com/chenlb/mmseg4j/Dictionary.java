@@ -91,7 +91,7 @@ public class Dictionary {
      * @see #getDefalutPath()
      */
     public static Dictionary getInstance(String appId) {
-        Path path = PathUtils.get(getDictRoot(), "mmseg");
+        Path path = PathUtils.get(getDictRoot());
         return getInstance(appId, path.toFile());
     }
 
@@ -627,10 +627,6 @@ public class Dictionary {
 
 
     public static String getDictRoot() {
-        return PathUtils
-            .get(
-                new File(AnalysisMMsegPlugin.class.getProtectionDomain().getCodeSource().getLocation().getPath())
-                    .getParent(),
-                "config").toAbsolutePath().toString();
+        return PathUtils.get(System.getProperty("es.path.conf"), "analysis-mmseg").toAbsolutePath().toString();
     }
 }

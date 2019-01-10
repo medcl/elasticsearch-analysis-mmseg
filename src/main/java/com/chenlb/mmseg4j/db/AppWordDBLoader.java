@@ -1,21 +1,17 @@
 package com.chenlb.mmseg4j.db;
 
 import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Properties;
 
-import org.elasticsearch.common.io.PathUtils;
 
 import org.apache.logging.log4j.Logger;
 import org.elasticsearch.common.logging.Loggers;
 
-import com.chenlb.mmseg4j.Dictionary;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 
@@ -31,7 +27,7 @@ public class AppWordDBLoader {
     static {
         try {
             System.setProperty("com.mchange.v2.c3p0.management.ManagementCoordinator",
-                "com.mchange.v2.c3p0.management.NullManagementCoordinator");
+                    "com.mchange.v2.c3p0.management.NullManagementCoordinator");
             Class.forName("com.mysql.jdbc.Driver");
         }
         catch (Throwable e) {
@@ -47,6 +43,15 @@ public class AppWordDBLoader {
     }
 
 
+    private String getEnv(String key) {
+        return getEnv(key, null);
+    }
+
+    private String getEnv(String key, String defaultVal) {
+        String val = System.getenv(key);
+        return val == null ? defaultVal : val;
+    }
+
     private void init() {
 
         // see https://www.elastic.co/guide/en/elasticsearch/plugins/current/plugin-authors.html
@@ -60,32 +65,17 @@ public class AppWordDBLoader {
                     return new ComboPooledDataSource();
                 }
         );
-        FileInputStream in = null;
-        Properties props = new Properties();
 
         try {
-            in = new FileInputStream(PathUtils.get(Dictionary.getDictRoot(), "jdbc.properties").toFile());
-            props.load(in);
             ds.setDriverClass("com.mysql.jdbc.Driver");
-            ds.setJdbcUrl(props.getProperty("url"));
-            ds.setUser(props.getProperty("username"));
-            ds.setPassword(props.getProperty("password"));
-            ds.setMaxPoolSize(Integer.parseInt(props.getProperty("maxPoolSize", "300")));
-            ds.setMinPoolSize(Integer.parseInt(props.getProperty("minPoolSize", "3")));
-
+            ds.setJdbcUrl(getEnv("JDBC_URL"));
+            ds.setUser(getEnv("JDBC_USERNAME"));
+            ds.setPassword(getEnv("JDBC_PASSWORD"));
+            ds.setMaxPoolSize(Integer.parseInt(getEnv("JDBC_MAX_POOL_SIZE", "300")));
+            ds.setMinPoolSize(Integer.parseInt(getEnv("JDBC_MIN_POOL_SIZE", "3")));
         }
         catch (Exception e) {
             log.error("Create datasource failed.", e);
-        }
-        finally {
-            if (in != null) {
-                try {
-                    in.close();
-                }
-                catch (Exception e) {
-
-                }
-            }
         }
     }
 

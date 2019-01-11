@@ -16,15 +16,21 @@
             <outputDirectory>.</outputDirectory>
             <filtered>true</filtered>
         </file>
+        <file>
+            <source>${project.basedir}/src/main/resources/plugin-security.policy</source>
+            <outputDirectory>.</outputDirectory>
+            <filtered>true</filtered>
+        </file>
     </files>
     <dependencySets>
         <dependencySet>
             <outputDirectory>./</outputDirectory>
             <useProjectArtifact>true</useProjectArtifact>
-            <useTransitiveFiltering>true</useTransitiveFiltering>
-            <excludes>
-                <exclude>org.elasticsearch:elasticsearch</exclude>
-            </excludes>
-        </dependencySet>        
+            <includes>
+              <include>mysql:*</include>
+              <include>com.mchange:*</include>
+              <include>org.elasticsearch:elasticsearch-analysis-mmseg</include>
+            </includes>
+        </dependencySet>
     </dependencySets>
 </assembly>

@@ -19,9 +19,9 @@
 
 package org.elasticsearch.index.analysis;
 
-import org.apache.logging.log4j.Logger;
-import org.elasticsearch.common.logging.Loggers;
 
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import com.chenlb.mmseg4j.Dictionary;
 import com.chenlb.mmseg4j.analysis.*;
 import org.apache.lucene.analysis.Analyzer;
@@ -38,7 +38,7 @@ import org.elasticsearch.index.IndexSettings;
  */
 public class MMsegAnalyzerProvider extends AbstractIndexAnalyzerProvider<MMSegAnalyzer>  {
 
-    private static final Logger logger = Loggers.getLogger(MMsegAnalyzerProvider.class.getName());
+    private static final Logger logger = LogManager.getLogger();
     private final MMSegAnalyzer analyzer;
 
     public MMsegAnalyzerProvider(IndexSettings indexSettings, Environment env, String name, Settings settings) {

@@ -2,7 +2,7 @@ package com.chenlb.mmseg4j;
 
 import org.elasticsearch.common.io.PathUtils;
 import org.apache.logging.log4j.Logger;
-import org.elasticsearch.common.logging.Loggers;
+import org.apache.logging.log4j.LogManager;
 import org.elasticsearch.plugin.analysis.mmseg.AnalysisMMsegPlugin;
 
 import com.chenlb.mmseg4j.db.AppWordDBLoader;
@@ -27,7 +27,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class Dictionary {
 
-	private static final Logger log = Loggers.getLogger(Dictionary.class.getName());
+	private static final Logger log = LogManager.getLogger();
 
     private String appId;
     private Dictionary parentDic;

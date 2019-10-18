@@ -8,10 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-
 import org.apache.logging.log4j.Logger;
-import org.elasticsearch.common.logging.Loggers;
-
+import org.apache.logging.log4j.LogManager;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 
@@ -23,7 +21,7 @@ import java.security.PrivilegedAction;
 
 public class AppWordDBLoader {
 
-    private static final Logger log = Loggers.getLogger(AppWordDBLoader.class.getName());
+    private static final Logger log = LogManager.getLogger();
     static {
         try {
             System.setProperty("com.mchange.v2.c3p0.management.ManagementCoordinator",

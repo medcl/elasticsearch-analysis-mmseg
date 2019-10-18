@@ -18,7 +18,7 @@ public class MMsegTokenizerFactory extends AbstractTokenizerFactory {
     private Seg seg;
 
     public MMsegTokenizerFactory(IndexSettings indexSettings, Environment env, String name, Settings settings,Seg seg) {
-        super(indexSettings, name, settings);
+        super(indexSettings, settings, name);
         this.seg=seg;
     }
 

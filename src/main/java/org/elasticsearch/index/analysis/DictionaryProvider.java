@@ -1,13 +1,13 @@
 package org.elasticsearch.index.analysis;
 
 import org.apache.logging.log4j.Logger;
-import org.elasticsearch.common.logging.Loggers;
+import org.apache.logging.log4j.LogManager;
 import java.util.concurrent.ConcurrentHashMap;
 import com.chenlb.mmseg4j.Dictionary;
 
 public class DictionaryProvider {
 
-    private static final Logger logger = Loggers.getLogger(DictionaryProvider.class.getName());
+    private static final Logger logger = LogManager.getLogger();
     private static final DictionaryProvider SINGLETON = new DictionaryProvider();
 
     private ConcurrentHashMap<String, Dictionary> dictionaries;

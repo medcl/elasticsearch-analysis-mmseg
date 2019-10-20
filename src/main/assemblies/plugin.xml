@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <assembly>
+    <id>release</id>
     <formats>
         <format>zip</format>
     </formats>

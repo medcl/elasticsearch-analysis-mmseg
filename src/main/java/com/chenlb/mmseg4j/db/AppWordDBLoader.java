@@ -71,6 +71,7 @@ public class AppWordDBLoader {
             ds.setPassword(getEnv("JDBC_PASSWORD"));
             ds.setMaxPoolSize(Integer.parseInt(getEnv("JDBC_MAX_POOL_SIZE", "300")));
             ds.setMinPoolSize(Integer.parseInt(getEnv("JDBC_MIN_POOL_SIZE", "3")));
+            ds.setPreferredTestQuery("SELECT 1");
         }
         catch (Exception e) {
             log.error("Create datasource failed.", e);

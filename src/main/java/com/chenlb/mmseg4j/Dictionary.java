@@ -534,9 +534,13 @@ public class Dictionary {
 
     private CharNode getCharNode(char key) {
         CharNode ret = dict.get(key);
-        if (ret == null)
-            ret = parentDict.get(key);
-        return ret;
+        if (ret != null) return ret;
+        if (parentDict != null) {
+            return parentDict.get(key);
+        } else {
+            log.info("CharNode starting with '" + key + "' for dict " + appId + " not found.");
+            return ret;
+        }
     }
 
 

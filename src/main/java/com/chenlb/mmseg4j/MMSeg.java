@@ -51,6 +51,9 @@ public class MMSeg {
 		reader.unread(data);
 	}
 
+	public int getReadIdx() {
+		return readedIdx;
+	}
 	
 	public Word next() throws IOException {
 		//先从缓存中取

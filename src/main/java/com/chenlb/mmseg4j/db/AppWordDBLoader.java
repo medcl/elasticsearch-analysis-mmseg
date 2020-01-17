@@ -72,6 +72,7 @@ public class AppWordDBLoader {
             ds.setMaxPoolSize(Integer.parseInt(getEnv("JDBC_MAX_POOL_SIZE", "300")));
             ds.setMinPoolSize(Integer.parseInt(getEnv("JDBC_MIN_POOL_SIZE", "3")));
             ds.setPreferredTestQuery("SELECT 1");
+            ds.setTestConnectionOnCheckout(true);
         }
         catch (Exception e) {
             log.error("Create datasource failed.", e);
@@ -88,7 +89,7 @@ public class AppWordDBLoader {
     }
 
 
-    public InputStream getWordStreamFromDB(String appId) throws IOException {
+    public InputStream getWordStreamFromDB(String appId) throws IOException, SQLException {
         if (this.ds == null)
             return null;
         String words;
@@ -135,7 +136,7 @@ public class AppWordDBLoader {
             // as only checked exceptions will be wrapped in a
             // PrivilegedActionException.
             log.error("Execute sql failed.", e.getException());
-            throw (IOException) e.getException();
+            throw (SQLException) e.getException();
         }
 
         if (words != null) {

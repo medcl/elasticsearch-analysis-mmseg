@@ -89,7 +89,7 @@ public class AppWordDBLoader {
     }
 
 
-    public InputStream getWordStreamFromDB(String appId) throws IOException, SQLException {
+    public InputStream getWordStreamFromDB(String appId) throws IOException {
         if (this.ds == null)
             return null;
         String words;
@@ -131,12 +131,17 @@ public class AppWordDBLoader {
                         return null;
                     });
         } catch (PrivilegedActionException e) {
+            // raw cause exception
+            Throwable ex = e.getException();
 
-            // e.getException() should be an instance of IOException
-            // as only checked exceptions will be wrapped in a
-            // PrivilegedActionException.
-            log.error("Execute sql failed.", e.getException());
-            throw (SQLException) e.getException();
+            log.error("Execute sql failed.", ex);
+            if (ex instanceof IOException) {
+                throw (IOException) ex;
+            } else {
+                // have to wrap e.g. SQLException in IOException, so
+                // to be catched and rollback dict.
+                throw new IOException(ex);
+            }
         }
 
         if (words != null) {

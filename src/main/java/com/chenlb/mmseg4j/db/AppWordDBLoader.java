@@ -72,6 +72,7 @@ public class AppWordDBLoader {
             ds.setMaxPoolSize(Integer.parseInt(getEnv("JDBC_MAX_POOL_SIZE", "300")));
             ds.setMinPoolSize(Integer.parseInt(getEnv("JDBC_MIN_POOL_SIZE", "3")));
             ds.setPreferredTestQuery("SELECT 1");
+            ds.setTestConnectionOnCheckout(true);
         }
         catch (Exception e) {
             log.error("Create datasource failed.", e);
@@ -130,12 +131,17 @@ public class AppWordDBLoader {
                         return null;
                     });
         } catch (PrivilegedActionException e) {
+            // raw cause exception
+            Throwable ex = e.getException();
 
-            // e.getException() should be an instance of IOException
-            // as only checked exceptions will be wrapped in a
-            // PrivilegedActionException.
-            log.error("Execute sql failed.", e.getException());
-            throw (IOException) e.getException();
+            log.error("Execute sql failed.", ex);
+            if (ex instanceof IOException) {
+                throw (IOException) ex;
+            } else {
+                // have to wrap e.g. SQLException in IOException, so
+                // to be catched and rollback dict.
+                throw new IOException(ex);
+            }
         }
 
         if (words != null) {

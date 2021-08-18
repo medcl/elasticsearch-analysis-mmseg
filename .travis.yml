@@ -17,3 +17,7 @@ deploy:
     repo: medcl/elasticsearch-analysis-mmseg
     tags: true
 
+
+cache:
+  directories:
+  - $HOME/.m2
